@@ -1,9 +1,9 @@
 // game configureation
-let config = {
+var config = {
     parent: 'myGame',
-    type: Phaser.CANVAS,
-    width: 480,
-    height: 640,
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
@@ -17,8 +17,9 @@ let config = {
             }
         }
     },
-    scene: [Menu, Play, Pause, Pause2, Play2, Credits, GameOver]
+    scene: [Load]
 };
 
-let game = new Phaser.Game(config);
+var game = new Phaser.Game(config);
 let cursors;
+
