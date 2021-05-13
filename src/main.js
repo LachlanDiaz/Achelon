@@ -1,5 +1,8 @@
 // game configureation
-var config = {
+// keep me honest
+'use strict';
+
+let config = {
     parent: 'myGame',
     type: Phaser.AUTO,
     width: 800,
@@ -17,9 +20,16 @@ var config = {
             }
         }
     },
-    scene: [Load]
+    scene: [Load, Play]
 };
 
-var game = new Phaser.Game(config);
+let game = new Phaser.Game(config);
+let centerX = game.config.width/2;
+let centerY = game.config.height/2;
+let w = game.config.width;
+let h = game.config.height;
 let cursors;
+let convo = false;
+let movement = true;
+
 

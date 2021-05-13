@@ -17,5 +17,14 @@ class Load extends Phaser.Scene {
         });
 
         this.load.path = './assets/';
+        // load graphics
+        this.load.image('text_box', 'img/text_box.png');
+        //load audio
+
+        //loadfont
+    }
+
+    create() {
+        this.scene.start('playScene')
     }
 }
