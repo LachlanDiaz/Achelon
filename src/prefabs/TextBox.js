@@ -20,6 +20,8 @@ class TextBox extends Phaser.GameObjects.Sprite {
         }
     }
 
+    //Below method inspired from: https://gamedevacademy.org/create-a-dialog-modal-plugin-in-phaser-3-part-2/
+
 
     // Sets the text for the dialog window
     setText(text) {
