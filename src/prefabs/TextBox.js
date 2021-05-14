@@ -42,7 +42,6 @@ class TextBox extends Phaser.GameObjects.Sprite {
 
     // Slowly displays the text in the window to make it appear animated
     _animateText() {
-        console.log('sup');
         this.eventCounter++;
         this.text.setText(this.text.text + this.dialog[this.eventCounter - 1]);
         if (this.eventCounter === this.dialog.length) {
@@ -52,7 +51,6 @@ class TextBox extends Phaser.GameObjects.Sprite {
     
     // Calcuate the position of the text in the dialog window
     _setText (text) {
-        console.log(text);
         // Reset the dialog
         if (this.text) this.text.destroy();
     
