@@ -29,6 +29,7 @@ let centerY = game.config.height/2;
 let w = game.config.width;
 let h = game.config.height;
 let cursors;
+let dialogSpeed = 3;
 let convo = false;
 let movement = true;
 

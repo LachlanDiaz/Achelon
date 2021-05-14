@@ -5,10 +5,7 @@ class Play extends Phaser.Scene {
 
     create() {
         cursors = this.input.keyboard.createCursorKeys();
-        this.textbox = new TextBox(this, 'text_box');
-        this.input.keyboard.on(cursors.up, function (event) {
-            console.log('Hello from the A Key!');
-          });
+        this.textbox = new TextBox(this, "yoooo", 'text_box');
     }
 
     update() {

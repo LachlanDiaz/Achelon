@@ -22,6 +22,7 @@ class Load extends Phaser.Scene {
         //load audio
 
         //loadfont
+
     }
 
     create() {
