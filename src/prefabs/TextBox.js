@@ -66,7 +66,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
             fontFamily: 'font1',
             fontSize: '14px',
             color: '#6eeb34',
-            align: 'right',
+            align: 'left',
             padding: {
             top: 5,
             bottom: 5,
