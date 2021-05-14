@@ -4,6 +4,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         this.eventCounter = 0;
         this.dialog;
+        this.done = false;
         movement = false;
         convo = true;
         this.setText(text);
@@ -12,7 +13,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
         }
 
     update() {
-        if (convo == true && Phaser.Input.Keyboard.JustDown(cursors.space)) {
+        if (convo == true && this.done == true && Phaser.Input.Keyboard.JustDown(cursors.space)) {
             console.log("destoyed");
             this.destroy();
             this.text.destroy();
@@ -45,6 +46,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
         this.eventCounter++;
         this.text.setText(this.text.text + this.dialog[this.eventCounter - 1]);
         if (this.eventCounter === this.dialog.length) {
+            this.done = true;
             this.timedEvent.remove();
         }
     }
