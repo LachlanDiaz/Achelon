@@ -10,7 +10,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        if(!this.moving) {
+        if(!this.moving && movement == true) {
             if (cursors.left.isDown) {
                 this.moving = true;
                 this.distance = 16;
