@@ -29,14 +29,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.movement_down();
             }
         }
-    }
-    test_movement() {
-        this.pos = this.x - 16;
-        this.setVelocityX(-16)
-        this.moving = false;
-    }
-        
+    }        
 
+    //below are pixel precise tile movements without using velocity 
+    //THIS TOOK TOO LONG WTF
     movement_left() {
         if (this.distance != 0) {
             let delay = 1000 /  60;
