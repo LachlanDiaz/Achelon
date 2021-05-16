@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
-        this.textbox = new TextBox(this, "This is a super long text to check the width depth of the textbox", 'text_box');
+        this.textbox = new TextBox(this, "This is test, use arrow keys to move. press space to get rid of the textbox. Go press space when next to that physics body on the top left.", 'text_box');
 
         this.textBoxes.add(this.textbox);
 

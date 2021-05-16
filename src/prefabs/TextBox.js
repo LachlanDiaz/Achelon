@@ -58,7 +58,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
         if (this.text) this.text.destroy();
     
         var x = 200;
-        var y = 500;
+        var y = 470;
     
         this.text = this.scene.make.text({
             x,
@@ -67,13 +67,13 @@ class TextBox extends Phaser.GameObjects.Sprite {
             style: {
             fontFamily: 'font1',
             fontSize: '14px',
-            color: '#6eeb34',
+            color: '#0000000',
             align: 'left',
             padding: {
             top: 5,
             bottom: 5,
             },
-            wordWrap: { width: 300 }
+            wordWrap: { width: 500 }
             }
           });
     }
