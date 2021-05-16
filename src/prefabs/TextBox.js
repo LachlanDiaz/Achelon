@@ -15,6 +15,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
             console.log("destoyed");
             this.destroy();
             this.text.destroy();
+            this.done = false;
             movement = true;
             convo = false;
             
