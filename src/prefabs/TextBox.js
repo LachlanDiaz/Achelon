@@ -12,7 +12,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
 
     update() {
         if (convo == true && this.done == true && Phaser.Input.Keyboard.JustDown(cursors.space)) {
-            //console.log("destoyed");
+            console.log("destoyed");
             this.destroy();
             this.text.destroy();
             movement = true;

@@ -32,5 +32,10 @@ let cursors;
 let dialogSpeed = 3;
 let convo = false;
 let movement = true;
+let check_left = true;
+let check_right = true;
+let check_up = true;
+let check_down = true;
+
 
 
