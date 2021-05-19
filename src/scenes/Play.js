@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
-        this.textbox = new TextBox(this, "This is test, use arrow keys to move. press space to get rid of the textbox. Go press space when next to that physics body on the top left.", 'text_box');
+        this.textbox = new TextBox(this, ["This is test, use arrow keys to move. press space to get rid of the textbox. Go press space when next to that physics body on the top left.", ""], 'text_box');
 
         this.textBoxes.add(this.textbox);
 
@@ -43,32 +43,8 @@ class Play extends Phaser.Scene {
         this.player.update();
         this.char.update();
         this.move_nubs();
-        this.checking();
         if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
             console.log("yo");
-        }
-    }
-
-    checking() {
-        if (this.physics.overlap(this.left_nub, this.char)) {
-            check_left = false;
-        } else {
-            check_left = true;
-        }
-        if (this.physics.overlap(this.right_nub, this.char)) {
-            check_right = false;
-        } else {
-            check_right = true;
-        }
-        if (this.physics.overlap(this.up_nub, this.char)) {
-            check_up = false;
-        } else {
-            check_up = true;
-        }
-        if (this.physics.overlap(this.down_nub, this.char)) {
-            check_down = false;
-        } else {
-            check_down = true;
         }
     }
 

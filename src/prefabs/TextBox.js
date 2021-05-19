@@ -7,20 +7,32 @@ class TextBox extends Phaser.GameObjects.Sprite {
         this.done = false;
         movement = false;
         convo = true;
-        this.setText(text);
+        this.contents = text
+        this.counter = 0;
+        this.line = this.contents[this.counter]; 
+        this.counter++;
+        this.setText(this.line);
+        this.line = this.contents[this.counter];
         }
 
     update() {
         if (convo == true && this.done == true && Phaser.Input.Keyboard.JustDown(cursors.space)) {
             console.log("destoyed");
-            //destory object
-            this.destroy();
+            //destory text
             this.text.destroy();
-            //set params to default values
             this.done = false;
-            movement = true;
-            convo = false;
-            
+            if (this.line == "") {
+                this.destroy();
+                //set params to default values
+                movement = true;
+                convo = false;
+                this.counter = 0;
+            } else {
+                this.line = this.contents[this.counter]; 
+                this.counter++;
+                this.setText(this.line);
+                this.line = this.contents[this.counter];
+            }
         }
     }
 
