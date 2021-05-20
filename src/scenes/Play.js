@@ -25,7 +25,7 @@ class Play extends Phaser.Scene {
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
 
-        this.textbox = new TextBox(this, ["top left.", ""], 'text_box');
+        this.textbox = new TextBox(this, ["this is a super long sting to check the text sasa.", ""], 'text_box');
 
         this.textBoxes.add(this.textbox);
 
