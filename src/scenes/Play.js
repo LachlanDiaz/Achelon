@@ -43,6 +43,7 @@ class Play extends Phaser.Scene {
         groundLayer.setDepth(-3);
         //add collision
         worldLayer.setCollisionByProperty({ collides: true });
+        this.physics.add.collider(this.player, worldLayer);
         //debug collision
         const debugGraphics = this.add.graphics().setAlpha(0.5);
         worldLayer.renderDebug(debugGraphics, {
