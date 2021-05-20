@@ -11,16 +11,24 @@ class Play extends Phaser.Scene {
     create() {
         cursors = this.input.keyboard.createCursorKeys();
         
-        //this.textbox.setDepth(10);
+        
 
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
-        this.textbox = new TextBox(this, ["This is test, use arrow keys to move. press space to get rid of the textbox. Go press space when next to that physics body on the top left.", ""], 'text_box');
+        
+
+        this.construct_player();
+
+        this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2.5);
+        this.cameras.main.setBounds(0, 0, 800, 800);
+        this.cameras.main.setRoundPixels(true);
+        this.cameras.main.startFollow(this.player);
+
+        this.textbox = new TextBox(this, ["top left.", ""], 'text_box');
 
         this.textBoxes.add(this.textbox);
 
-        this.construct_player();
         this.char = new Char(this);
 
         //create map
@@ -44,15 +52,15 @@ class Play extends Phaser.Scene {
         this.char.update();
         this.move_nubs();
         if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
-            console.log("yo");
+            console.log(this.cameras.main.midPoint.x);
         }
     }
 
     //constructs the player and 4 directional nubs for collision detection.
     construct_player() {
         this.player = new Player(this);
-        this.player.x = 64;
-        this.player.y = 64;
+        this.player.x = 256;
+        this.player.y = 256;
         this.nubs = this.add.group();
         this.left_nub = this.physics.add.sprite(this.player.x - 17, this.player.y).setBodySize(3, 3);
         this.nubs.add(this.left_nub);

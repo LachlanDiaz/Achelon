@@ -8,6 +8,7 @@ let config = {
     width: 800,
     height: 600,
     scale: {
+        //mode: Phaser.Scale.CENTER_BOTH,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics: {
@@ -20,7 +21,8 @@ let config = {
             }
         }
     },
-    scene: [Load, Play]
+    scene: [Load, Play],
+    pixelArt: true
 };
 
 let game = new Phaser.Game(config);

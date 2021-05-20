@@ -1,6 +1,6 @@
 class TextBox extends Phaser.GameObjects.Sprite {
     constructor(scene, text) {
-        super(scene, game.config.width / 2, 520, 'text_box');
+        super(scene, scene.cameras.main.midPoint.x, scene.cameras.main.midPoint.y + 29.5, 'text_box');
         scene.add.existing(this);
         this.eventCounter = 0;
         this.dialog;
@@ -72,8 +72,8 @@ class TextBox extends Phaser.GameObjects.Sprite {
         // Reset the dialog
         if (this.text) this.text.destroy();
     
-        var x = 200;
-        var y = 470;
+        var x = this.scene.cameras.main.midPoint.x - 145;
+        var y = this.scene.cameras.main.midPoint.y ;
     
         this.text = this.scene.make.text({
             x,
@@ -81,14 +81,10 @@ class TextBox extends Phaser.GameObjects.Sprite {
             text,
             style: {
             fontFamily: 'font1',
-            fontSize: '14px',
+            fontSize: '8px',
             color: '#0000000',
             align: 'left',
-            padding: {
-            top: 5,
-            bottom: 5,
-            },
-            wordWrap: { width: 500 }
+            wordWrap: { width: 280 }
             }
           });
     }

@@ -5,26 +5,31 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.body.allowGravity = false;
-        this.movespeed = 1;
+        this.movespeed = 64;
     }
 
     update() {
         if(movement == true) {
             if (cursors.left.isDown && check_left) {
                 head = this.scene.left_nub;
-                this.setVelocity(-64, 0);
+                this.setVelocity(-this.movespeed, 0);
             } else if (cursors.right.isDown && check_right) {
                 head = this.scene.right_nub;
-                this.setVelocity(64, 0);
+                this.setVelocity(this.movespeed, 0);
             } else if (cursors.up.isDown && check_up) {
                 head = this.scene.up_nub;
-                this.setVelocity(0, -64);
+                this.setVelocity(0, -this.movespeed);
             } else if (cursors.down.isDown && check_down) {
                 head = this.scene.down_nub;
-                this.setVelocity(0, 64);
+                this.setVelocity(0, this.movespeed);
             } else {
                 this.setVelocity(0, 0);
             }
+        }
+        if (cursors.shift.isDown) {
+            this.movespeed = 112;
+        } else {
+            this.movespeed = 64;
         }
     }        
 

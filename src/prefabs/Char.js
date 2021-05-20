@@ -23,7 +23,6 @@ class Char extends Phaser.Physics.Arcade.Sprite {
                 this.scene.temp = new TextBox(this.scene, ["this is my ending dialouge", "goodbye", ""], 'text_box');
             }
             this.scene.textBoxes.add(this.scene.temp);
-            this.end_convo 
         }
         
     }
