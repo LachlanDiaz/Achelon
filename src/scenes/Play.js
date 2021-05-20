@@ -4,13 +4,12 @@ class Play extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("tiles_01", "./assets/img/town_tilemap_01.png");
-        this.load.tilemapTiledJSON("map_01", "./assets/config/map01.json" );
+        this.load.image("tiles_01", "./assets/img/tileset_clean.png");
+        this.load.tilemapTiledJSON("map_01", "./assets/config/map_01.json" );
     }
 
     create() {
         cursors = this.input.keyboard.createCursorKeys();
-        
         
 
         this.textBoxes = this.add.group({
@@ -30,18 +29,28 @@ class Play extends Phaser.Scene {
         this.textBoxes.add(this.textbox);
 
         this.char = new Char(this);
+        this.char.setDepth(-1);
 
         //create map
         const map = this.make.tilemap({key: "map_01"});
-        const tileset01 = map.addTilesetImage("town_tileset_01", "tiles_01");
+        const tileset01 = map.addTilesetImage("tileset_clean", "tiles_01");
         //establishing layers
-        const bgLayer = map.createLayer("bg", tileset01, 0, 0);
-        bgLayer.setDepth(-1);
-        const groundLayer = map.createLayer("ground", tileset01, 0, 0);
-        groundLayer.setDepth(-1);
         const frontLayer = map.createLayer("front", tileset01, 0, 0);
-        frontLayer.setDepth(-1);
-
+        frontLayer.setDepth(0);
+        const worldLayer = map.createLayer("world", tileset01, 0, 0);
+        worldLayer.setDepth(-2);
+        const groundLayer = map.createLayer("ground", tileset01, 0, 0);
+        groundLayer.setDepth(-3);
+        //add collision
+        worldLayer.setCollisionByProperty({ collides: true });
+        this.physics.add.collider(this.player, worldLayer);
+        //debug collision
+        const debugGraphics = this.add.graphics().setAlpha(0.5);
+        worldLayer.renderDebug(debugGraphics, {
+            tileColor: null, // Color of non-colliding tiles
+            collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+            faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
+        });
     }
 
         
