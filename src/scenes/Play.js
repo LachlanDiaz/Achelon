@@ -16,10 +16,11 @@ class Play extends Phaser.Scene {
             runChildUpdate: true    // make sure update runs on group children
         });
         
+        
 
         this.construct_player();
 
-        this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2.5);
+        this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
         this.cameras.main.setBounds(0, 0, 800, 800);
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
@@ -27,6 +28,7 @@ class Play extends Phaser.Scene {
         this.textbox = new TextBox(this, ["this is a super long sting to check the text width of the textbox, make sure not to go over the text limti so the string doesnt fly off the screen.", ""], 'text_box');
 
         this.textBoxes.add(this.textbox);
+        
 
         this.char = new Char(this);
         this.char.setDepth(-1);
