@@ -32,7 +32,7 @@ let w = game.config.width;
 let h = game.config.height;
 let cursors;
 let head;
-let dialogSpeed = 3;
+let dialogSpeed = 6;
 let convo = false;
 let movement = true;
 let check_left = true;

@@ -59,7 +59,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
     // Slowly displays the text in the window to make it appear animated
     _animateText() {
         this.eventCounter++;
-        this.scene.sound.play('bleep', { volume: 0.25 });
+        this.scene.sound.play('bleep', { volume: 0.05, rate: 2.0, detune: -1200});
         this.text.setText(this.text.text + this.dialog[this.eventCounter - 1]);
         if (this.eventCounter === this.dialog.length) {
             this.done = true;
