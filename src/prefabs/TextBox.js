@@ -84,6 +84,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
             fontSize: '72px',
             color: '#0000000',
             align: 'left',
+            lineSpacing: 100,
             wordWrap: { width: 3600 }
             }
           }).setScale(0.08);
