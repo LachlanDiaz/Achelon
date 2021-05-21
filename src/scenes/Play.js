@@ -33,6 +33,8 @@ class Play extends Phaser.Scene {
         this.char = new Char(this);
         this.char.setDepth(-1);
 
+        this.key = new Key(this);
+
         //create map
         const map = this.make.tilemap({key: "map_01"});
         const tileset01 = map.addTilesetImage("tileset_clean", "tiles_01");
@@ -62,8 +64,9 @@ class Play extends Phaser.Scene {
         this.player.update();
         this.char.update();
         this.move_nubs();
+        this.key.update();
         if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
-            console.log(this.cameras.main.midPoint.x);
+            console.log(inventory.get("key"));
         }
     }
 

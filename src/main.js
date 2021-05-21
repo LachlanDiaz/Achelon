@@ -32,6 +32,7 @@ let w = game.config.width;
 let h = game.config.height;
 let cursors;
 let head;
+let inventory = new Map();
 let dialogSpeed = 6;
 let convo = false;
 let movement = true;
