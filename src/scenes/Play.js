@@ -10,6 +10,7 @@ class Play extends Phaser.Scene {
 
     create() {
         cursors = this.input.keyboard.createCursorKeys();
+        keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
         
 
         this.textBoxes = this.add.group({
@@ -68,6 +69,9 @@ class Play extends Phaser.Scene {
         if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
             console.log(inventory.get("key"));
         }
+        if (convo == false && !pause &&  Phaser.Input.Keyboard.JustDown(keyCTRL)) {
+            this.menu_activation();
+        }
     }
 
     //constructs the player and 4 directional nubs for collision detection.
@@ -101,7 +105,10 @@ class Play extends Phaser.Scene {
         //down nub
         this.down_nub.x = this.player.x;
         this.down_nub.y = this.player.y + 17;
+    }
 
-
+    menu_activation() {
+        pause = true;
+        this.scene.switch('menuScene'); 
     }
 } 
