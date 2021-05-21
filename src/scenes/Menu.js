@@ -21,9 +21,16 @@ class Menu extends Phaser.Scene {
     }
 
     update () {
-        if (pause && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
-            pause = false;
+        if (Phaser.Input.Keyboard.JustDown(keyCTRL)) {
+            switched = true;
             this.scene.switch('playScene'); 
+            this.reconstruct_keybinds(this.scene.get('playScene'));
         }
+    }
+
+    reconstruct_keybinds(scene) {
+        cursors = scene.input.keyboard.createCursorKeys();
+        keyCTRL = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
+        switched = false;
     }
 }

@@ -36,7 +36,7 @@ let head;
 let inventory = new Map();
 let dialogSpeed = 6;
 let convo = false;
-let pause = false;
+let switched = false;
 let movement = true;
 let check_left = true;
 let check_right = true;
