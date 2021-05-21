@@ -26,6 +26,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             } else {
                 this.setVelocity(0, 0);
             }
+        } else {
+            this.setVelocity(0,0);
         }
         if (cursors.shift.isDown) {
             this.movespeed = 112;
