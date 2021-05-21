@@ -72,10 +72,6 @@ class Play extends Phaser.Scene {
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
         }
-        /*if (switched) {
-            console.log("switcherd")
-            this.reconstruct_keybinds();
-        }*/
     }
 
     //constructs the player and 4 directional nubs for collision detection.
@@ -112,15 +108,15 @@ class Play extends Phaser.Scene {
     }
 
     menu_activation() {
-        
+        curr_scene = this;
+        menu_scene = this.scene.get('menuScene')
+        menu_scene.place_inventory();
         this.scene.switch('menuScene');
-        this.reconstruct_keybinds(this.scene.get('menuScene'));
-        switched = true;
+        this.reconstruct_keybinds(menu_scene);
     }
 
     reconstruct_keybinds(scene) {
         cursors = scene.input.keyboard.createCursorKeys();
         keyCTRL = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
-        switched = false;
     }
 } 
