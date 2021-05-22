@@ -32,6 +32,7 @@ class Play extends Phaser.Scene {
         
 
         this.char = new Char(this);
+        this.physics.add.collider(this.char, this.player);
         this.char.setDepth(-1);
 
         this.key = new Key(this);

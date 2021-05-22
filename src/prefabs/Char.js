@@ -8,7 +8,6 @@ class Char extends Phaser.Physics.Arcade.Sprite {
         this.body.immovable = true;
         this.scene.temp;
         this.end_convo = false;
-
     }
 
 
