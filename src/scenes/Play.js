@@ -37,6 +37,8 @@ class Play extends Phaser.Scene {
 
         this.key = new Key(this);
 
+        this.box = new Box(this);
+
         //create map
         const map = this.make.tilemap({key: "map_01"});
         const tileset01 = map.addTilesetImage("tileset_clean", "tiles_01");
@@ -50,6 +52,7 @@ class Play extends Phaser.Scene {
         //add collision
         worldLayer.setCollisionByProperty({ collides: true });
         this.physics.add.collider(this.player, worldLayer);
+        this.physics.add.collider(this.box, worldLayer); // please remove scene does not have box
         //debug collision
         const debugGraphics = this.add.graphics().setAlpha(0.5);
         worldLayer.renderDebug(debugGraphics, {
@@ -67,6 +70,7 @@ class Play extends Phaser.Scene {
         this.char.update();
         this.move_nubs();
         this.key.update();
+        this.box.update();
         if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
             console.log(inventory.get("key"));
         }
