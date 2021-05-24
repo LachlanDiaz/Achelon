@@ -23,7 +23,7 @@ class Intro extends Phaser.Scene {
     update() {
         this.textbox.update();
         if (convo == false) {
-            this.scene.start('playScene')
+            this.scene.start('playScene');
         } 
     }
 }
