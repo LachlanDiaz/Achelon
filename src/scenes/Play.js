@@ -26,7 +26,7 @@ class Play extends Phaser.Scene {
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
 
-        this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", ""], 'text_box');
+        this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
 
         this.textBoxes.add(this.textbox);
         
