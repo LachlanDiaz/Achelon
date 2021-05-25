@@ -21,6 +21,7 @@ class Load extends Phaser.Scene {
         this.load.image('text_box', 'img/text_box1.png');
         this.load.image('player', 'img/char_sprite.png');
         this.load.image('box', 'img/box.png');
+        this.load.atlas('sprite_atlas', 'img/sprite_atlas.png', 'config/sprites.json');
         //load audio
         this.load.audio('bleep', 'audio/Bloop.wav');
 
@@ -30,5 +31,51 @@ class Load extends Phaser.Scene {
 
     create() {
         this.scene.start('introScene');
+        //create global anims
+        this.anims.create({
+            key: 'item_shine',
+            frames: this.anims.generateFrameNames('sprite_atlas', {
+                prefix: 'item_',
+                start: 1,
+                end: 9,
+                suffix: '',
+                zeroPad: 2
+            }),
+            frameRate: 4,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'dWalk',
+            defaultTextureKey: 'sprite_atlas',
+            frames: [
+                {frame: 'D_walk_01'}, {frame: 'D_idle'}, {frame: 'D_walk_02'}
+            ],
+            frameRate: 12
+        });
+        this.anims.create({
+            key: 'uWalk',
+            defaultTextureKey: 'sprite_atlas',
+            frames: [
+                {frame: 'U_walk_01'}, {frame: 'U_idle'}, {frame: 'U_walk_02'}
+            ],
+            frameRate: 12
+        });
+        this.anims.create({
+            key: 'lWalk',
+            defaultTextureKey: 'sprite_atlas',
+            frames: [
+                {frame: 'L_walk_01'}, {frame: 'L_idle'}, {frame: 'L_walk_02'}
+            ],
+            frameRate: 12
+        });
+        this.anims.create({
+            key: 'rWalk',
+            defaultTextureKey: 'sprite_atlas',
+            frames: [
+                {frame: 'R_walk_01'}, {frame: 'R_idle'}, {frame: 'R_walk_02'}
+            ],
+            frameRate: 12
+        });
+
     }
 }
