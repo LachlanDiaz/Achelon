@@ -7,6 +7,7 @@ class Key extends Phaser.Physics.Arcade.Sprite {
         this.body.allowGravity = false;
         this.body.immovable = true;
         this.scene.temp;
+        this.anims.play("item_shine")
     }
 
 
