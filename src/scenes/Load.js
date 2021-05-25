@@ -41,7 +41,7 @@ class Load extends Phaser.Scene {
                 suffix: '',
                 zeroPad: 2
             }),
-            frameRate: 15,
+            frameRate: 10,
             repeat: -1
         });
         this.anims.create({
@@ -50,7 +50,7 @@ class Load extends Phaser.Scene {
             frames: [
                 {frame: 'D_walk_01'}, {frame: 'D_idle'}, {frame: 'D_walk_02'}
             ],
-            frameRate: 10
+            frameRate: 8
         });
         this.anims.create({
             key: 'uWalk',
@@ -58,7 +58,7 @@ class Load extends Phaser.Scene {
             frames: [
                 {frame: 'U_walk_01'}, {frame: 'U_idle'}, {frame: 'U_walk_02'}
             ],
-            frameRate: 10
+            frameRate: 8
         });
         this.anims.create({
             key: 'lWalk',
@@ -66,7 +66,7 @@ class Load extends Phaser.Scene {
             frames: [
                 {frame: 'L_walk_01'}, {frame: 'L_idle'}, {frame: 'L_walk_02'}
             ],
-            frameRate: 10
+            frameRate: 8
         });
         this.anims.create({
             key: 'rWalk',
@@ -74,7 +74,7 @@ class Load extends Phaser.Scene {
             frames: [
                 {frame: 'R_walk_01'}, {frame: 'R_idle'}, {frame: 'R_walk_02'}
             ],
-            frameRate: 10
+            frameRate: 8
         });
 
     }
