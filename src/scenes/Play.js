@@ -77,6 +77,7 @@ class Play extends Phaser.Scene {
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
         }
+
     }
 
     //constructs the player and 4 directional nubs for collision detection.
