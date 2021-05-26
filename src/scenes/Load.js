@@ -22,6 +22,12 @@ class Load extends Phaser.Scene {
         this.load.image('player', 'img/char_sprite.png');
         this.load.image('box', 'img/box.png');
         this.load.atlas('sprite_atlas', 'img/sprite_atlas.png', 'config/sprites.json');
+        this.load.spritesheet('boy', 'img/kid_sprite.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            startFrame: 0,
+            endFrame: 1
+        });
         //load audio
         this.load.audio('bleep', 'audio/Bloop.wav');
 
@@ -76,6 +82,15 @@ class Load extends Phaser.Scene {
             ],
             frameRate: 8
         });
-
+        this.anims.create({
+            key: 'kid_jig',
+            frames: this.anims.generateFrameNumbers('boy', {
+                start: 0,
+                end: 1,
+                first: 0
+            }),
+            frameRate: 4,
+            repeat: -1
+        });
     }
 }
