@@ -21,6 +21,7 @@ class Load extends Phaser.Scene {
         this.load.image('text_box', 'img/text_box1.png');
         this.load.image('player', 'img/char_sprite.png');
         this.load.image('box', 'img/box.png');
+        this.load.image('test_image', 'img/test_image.png');
         this.load.atlas('sprite_atlas', 'img/sprite_atlas.png', 'config/sprites.json');
         this.load.spritesheet('boy', 'img/kid_sprite.png', {
             frameWidth: 32,
@@ -28,8 +29,15 @@ class Load extends Phaser.Scene {
             startFrame: 0,
             endFrame: 1
         });
+        this.load.spritesheet('balloon', 'img/balloon.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            startFrame: 0,
+            endFrame: 1
+        });
         //load audio
         this.load.audio('bleep', 'audio/Bloop.wav');
+        this.load.audio('intro', 'audio/MusicBox.wav');
 
         //loadfont
 
@@ -90,6 +98,16 @@ class Load extends Phaser.Scene {
                 first: 0
             }),
             frameRate: 4,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'balloon_sway',
+            frames: this.anims.generateFrameNumbers('balloon', {
+                start: 0,
+                end: 1,
+                first: 0
+            }),
+            frameRate: 2,
             repeat: -1
         });
     }

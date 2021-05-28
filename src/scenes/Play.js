@@ -30,6 +30,8 @@ class Play extends Phaser.Scene {
 
         this.textBoxes.add(this.textbox);
         
+        this.balloon = this.physics.add.sprite(96, 360);
+        this.balloon.anims.play('balloon_sway');
 
         this.char = new Char(this);
         this.physics.add.collider(this.char, this.player);
