@@ -25,7 +25,28 @@ class Intro extends Phaser.Scene {
     this.cameras.main.setRoundPixels(true);
     this.cameras.main.startFollow(this.camera_focal);
 
-    this.textbox = new TextBox(this, ["This is an into dialouge test", "some stuff about stroy here", "some other stuff about story", ""], 'text_box');
+    this.textbox = new TextBox(this, ["It was said that God fell from the sky.",
+     "A once proud being from the stars, had strayed too far from the rest of their kind and fell to the ground below.",
+     "The crash from the fall made the wind and mountains. Fire was born from their scream. And water was pooled from their tears.", 
+     "And from fragments of their soul that leaked out...",
+     "We were born.", 
+     "Not wanting our creator to suffer, we nursed them back to health.", 
+     "In return, our creator helped us as well. Providing short winters, long springs, and bountiful harvests.",
+     "But the God longed to reunite with their kin.",
+     "And so they left. Slowly soaring into the sky in an attempt to see their family again.",
+     "But not wanting to be abandoned by their creator, we followed.",
+     "We started building a tower to follow our God in their pursuit for family, for were we not their family too?",
+     "Some stayed. Some continued to follow.",
+     "But as our God soared further and further away from our reach, the light from the lower levels of the tower began to fade.",
+     "Life on the lower levels began to diminish, the nights became longer, the days became shorter, and food became scarcer.",
+     "The bottom dwellers are suffering because we were abandonded by the one we needed most.",
+     "That's why I have to complete it.",
+     "I have to complete my rocket.",
+     "I'm going to soar past the highest levels of the tower.",
+     "Past all the upper dwellers who bask comfortably in the dregs of light left in our creator's trail.",
+     "I'll rise above it all.",
+     "And ask God to stay...",
+     ""], 'text_box');
 }
 
 
