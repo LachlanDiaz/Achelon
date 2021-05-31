@@ -5,7 +5,9 @@ class Play extends Phaser.Scene {
 
     preload(){
         this.load.image("tiles_01", "./assets/img/tileset_clean.png");
+        this.load.image("tiles_02", "./assets/img/tileset_rusty.png");
         this.load.tilemapTiledJSON("map_01", "./assets/config/map_01.json" );
+        this.load.tilemapTiledJSON("tutorial", "./assets/config/tutorial.json" );
     }
 
     create() {
@@ -21,14 +23,12 @@ class Play extends Phaser.Scene {
 
         this.construct_player();
 
-        this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
-        this.cameras.main.setBounds(0, 0, 800, 800);
+        
+        
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
 
-        this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
-
-        this.textBoxes.add(this.textbox);
+       
         
         this.balloon = this.physics.add.sprite(96, 360);
         this.balloon.anims.play('balloon_sway');
@@ -42,13 +42,15 @@ class Play extends Phaser.Scene {
         this.box = new Box(this);
 
         //create map
-        const map = this.make.tilemap({key: "map_01"});
-        const tileset01 = map.addTilesetImage("tileset_clean", "tiles_01");
+        const map = this.make.tilemap({key: "tutorial"});
+        const tileset01 = map.addTilesetImage("tileset_rusty", "tiles_02");
         //establishing layers
         const frontLayer = map.createLayer("front", tileset01, 0, 0);
         frontLayer.setDepth(0);
         const worldLayer = map.createLayer("world", tileset01, 0, 0);
         worldLayer.setDepth(-2);
+        const treeLayer = map.createLayer("tree edges", tileset01, 0, 0);
+        treeLayer.setDepth(-2);
         const groundLayer = map.createLayer("ground", tileset01, 0, 0);
         groundLayer.setDepth(-3);
         //add collision
@@ -62,6 +64,12 @@ class Play extends Phaser.Scene {
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });
+
+        this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
+        this.textBoxes.add(this.textbox);
+        this.cameras.main.setViewport(0, 0, map.widthInPixels, map.heightInPixels).setZoom(2);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels + 640, map.heightInPixels + 640);
+
     }
 
         
