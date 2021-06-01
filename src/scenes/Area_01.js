@@ -1,13 +1,11 @@
-class Play extends Phaser.Scene {
+class Area_01 extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("area_01Scene");
     }
 
     preload(){
-        this.load.image("tiles_01", "./assets/img/tileset_clean.png");
         this.load.image("tiles_02", "./assets/img/tileset_rusty.png");
-        this.load.tilemapTiledJSON("map_01", "./assets/config/map_01.json" );
-        this.load.tilemapTiledJSON("tutorial", "./assets/config/tutorial.json" );
+        this.load.tilemapTiledJSON("area_01", "./assets/config/area_01.json" );
     }
 
     create() {
@@ -25,13 +23,11 @@ class Play extends Phaser.Scene {
 
         
         
-        this.cameras.main.setRoundPixels(true);
-        this.cameras.main.startFollow(this.player);
+        
 
        
         
-        this.balloon = this.physics.add.sprite(416, 800).setSize(32, 32);
-        this.balloon.setOrigin(1, 1);
+        this.balloon = this.physics.add.sprite(96, 360);
         this.balloon.anims.play('balloon_sway');
 
         this.char = new Char(this);
@@ -43,34 +39,35 @@ class Play extends Phaser.Scene {
         this.box = new Box(this);
 
         //create map
-        const map = this.make.tilemap({key: "tutorial"});
-        const tileset00 = map.addTilesetImage("tileset_rusty", "tiles_02");
+        const map01 = this.make.tilemap({key: "area_01"});
+        const tileset01 = map01.addTilesetImage("tileset_rusty", "tiles_02");
         //establishing layers
-        const frontLayer = map.createLayer("front", tileset00, 0, 0);
-        frontLayer.setDepth(0);
-        const worldLayer = map.createLayer("world", tileset00, 0, 0);
-        worldLayer.setDepth(-2);
-        const treeLayer = map.createLayer("tree edges", tileset00, 0, 0);
-        treeLayer.setDepth(-2);
-        const groundLayer = map.createLayer("ground", tileset00, 0, 0);
-        groundLayer.setDepth(-3);
+        const frontLayer01 = map01.createLayer("front", tileset01, 0, 0);
+        frontLayer01.setDepth(0);
+        const worldLayer01 = map01.createLayer("world", tileset01, 0, 0);
+        worldLayer01.setDepth(-2);
+        const groundLayer01 = map01.createLayer("ground", tileset01, 0, 0);
+        groundLayer01.setDepth(-3);
         //add collision
-        worldLayer.setCollisionByProperty({ collides: true });
-        this.physics.add.collider(this.player, worldLayer);
-        this.physics.add.collider(this.box, worldLayer); // please remove scene does not have box
+        worldLayer01.setCollisionByProperty({ collides: true });
+        this.physics.add.collider(this.player, worldLayer01);
+        this.physics.add.collider(this.box, worldLayer01); // please remove scene does not have box
         //debug collision
         const debugGraphics = this.add.graphics().setAlpha(0.5);
-        worldLayer.renderDebug(debugGraphics, {
+        worldLayer01.renderDebug(debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });
 
-        this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
-        this.textBoxes.add(this.textbox);
-        this.cameras.main.setViewport(0, 0, map.widthInPixels, map.heightInPixels).setZoom(2);
-        this.cameras.main.setBounds(0, 0, map.widthInPixels + 640, map.heightInPixels + 640);
+        
+        this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
+        this.cameras.main.setBounds(0, 0, map01.widthInPixels, map01.heightInPixels);
+        this.cameras.main.setRoundPixels(true);
+        this.cameras.main.startFollow(this.player);
 
+        this.textbox = new TextBox(this, ["Made it to 2nd area", "anotherrrr test", ""], 'text_box');
+        this.textBoxes.add(this.textbox);
     }
 
         
@@ -82,15 +79,11 @@ class Play extends Phaser.Scene {
         this.move_nubs();
         this.key.update();
         this.box.update();
-       /* if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
+        if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
             console.log(inventory.get("key"));
-        }*/
+        }
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
-        }
-        if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            console.log("YOOSDAKD");
-            this.scene_switch();
         }
 
     }
@@ -98,8 +91,8 @@ class Play extends Phaser.Scene {
     //constructs the player and 4 directional nubs for collision detection.
     construct_player() {
         this.player = new Player(this);
-        this.player.x = 256;
-        this.player.y = 256;
+        this.player.x = 400;
+        this.player.y = 400;
         this.nubs = this.add.group();
         this.left_nub = this.physics.add.sprite(this.player.x - 17, this.player.y).setBodySize(3, 3);
         this.nubs.add(this.left_nub);
@@ -134,14 +127,6 @@ class Play extends Phaser.Scene {
         menu_scene.place_inventory();
         this.scene.switch('menuScene');
         this.reconstruct_keybinds(menu_scene);
-    }
-
-    scene_switch() {
-        //prev_scene = this;
-        next_scene = this.scene.get('area_01Scene');
-        //this.next_scene.place_inventory();
-        this.scene.switch('area_01Scene');
-        this.reconstruct_keybinds(next_scene);
     }
 
     reconstruct_keybinds(scene) {

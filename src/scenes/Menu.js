@@ -8,7 +8,7 @@ class Menu extends Phaser.Scene {
 
     update () {
         if (Phaser.Input.Keyboard.JustDown(keyCTRL)) {
-            this.scene.switch('playScene'); 
+            this.scene.switch(curr_scene); 
             this.reconstruct_keybinds(curr_scene);
         }
     }

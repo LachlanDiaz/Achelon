@@ -21,7 +21,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Menu, Intro, Play],
+    scene: [Load, Menu, Intro, Play, Area_01],
     pixelArt: true
 };
 
@@ -34,6 +34,7 @@ let cursors;
 let keyCTRL;
 let head;
 let last_scene;
+let next_scene;
 let curr_scene;
 let menu_scene;
 let inventory = new Map();

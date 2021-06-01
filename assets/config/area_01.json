@@ -46,8 +46,18 @@
  "tileheight":32,
  "tilesets":[
         {
+         "columns":13,
          "firstgid":1,
-         "source":"..\/..\/..\/..\/..\/Downloads\/tileset_rusty.tsx"
+         "image":"..\/img\/tileset_rusty.png",
+         "imageheight":288,
+         "imagewidth":416,
+         "margin":0,
+         "name":"tileset_rusty",
+         "spacing":0,
+         "tilecount":117,
+         "tileheight":32,
+         "tilewidth":32,
+         "transparentcolor":"#000000"
         }],
  "tilewidth":32,
  "type":"map",
