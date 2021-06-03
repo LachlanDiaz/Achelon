@@ -12,7 +12,6 @@ class Play extends Phaser.Scene {
 
     create() {
 
-
         this.bgMusic = this.sound.add('junkyard', {volume: 0.10});
         this.bgMusic.loop = true;
         this.bgMusic.play();
@@ -76,10 +75,20 @@ class Play extends Phaser.Scene {
 
         this.space = this.physics.add.sprite(416, 224).setSize(128, 128);
         this.space.setScale(0.25);
-        //this.space.setOrigin(0.5, 0.5);
         this.space.setOffset(64, 96);
         this.space.anims.play('space_press');
 
+        this.arrows = this.add.sprite(this.player.x, this.player.y - 32).setSize(24, 24);
+        this.arrows.setScale(1.5);
+        this.arrows.anims.play('arrows_press');
+        this.time.delayedCall(3000, () => { 
+            this.tweens.add({
+            targets: this.arrows,
+            alpha: 0,
+            ease: 'Linear',
+            duration: 5000,
+            }); 
+        });
 
         this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
         this.textBoxes.add(this.textbox);
@@ -97,9 +106,8 @@ class Play extends Phaser.Scene {
         this.move_nubs();
         this.key.update();
         this.box.update();
-       /* if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
-            console.log(inventory.get("key"));
-        }*/
+        this.arrows.x = this.player.x;
+        this.arrows.y = this.player.y - 32;
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
         }
