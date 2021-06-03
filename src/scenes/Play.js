@@ -11,6 +11,12 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+
+
+        this.bgMusic = this.sound.add('junkyard', {volume: 0.10});
+        this.bgMusic.loop = true;
+        this.bgMusic.play();
+
         cursors = this.input.keyboard.createCursorKeys();
         keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
         

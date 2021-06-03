@@ -38,6 +38,7 @@ class Load extends Phaser.Scene {
         //load audio
         this.load.audio('bleep', 'audio/Bloop.wav');
         this.load.audio('intro', 'audio/MusicBox.wav');
+        this.load.audio('junkyard', 'audio/Junkyard.wav');
 
         //loadfont
 
