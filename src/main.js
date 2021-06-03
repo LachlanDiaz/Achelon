@@ -21,7 +21,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Menu, Intro, Play, Area_01],
+    scene: [Load, Title, Menu, Intro, Play, Area_01],
     pixelArt: true
 };
 

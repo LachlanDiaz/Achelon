@@ -35,6 +35,12 @@ class Load extends Phaser.Scene {
             startFrame: 0,
             endFrame: 1
         });
+        this.load.spritesheet('press_space', 'img/space_bar.png', {
+            frameWidth: 260,
+            frameHeight: 80,
+            startFrame: 0,
+            endFrame: 1
+        });
         //load audio
         this.load.audio('bleep', 'audio/Bloop.wav');
         this.load.audio('intro', 'audio/MusicBox.wav');
@@ -104,6 +110,16 @@ class Load extends Phaser.Scene {
         this.anims.create({
             key: 'balloon_sway',
             frames: this.anims.generateFrameNumbers('balloon', {
+                start: 0,
+                end: 1,
+                first: 0
+            }),
+            frameRate: 2,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'space_press',
+            frames: this.anims.generateFrameNumbers('press_space', {
                 start: 0,
                 end: 1,
                 first: 0

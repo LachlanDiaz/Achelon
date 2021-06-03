@@ -1,6 +1,6 @@
 class Key extends Phaser.Physics.Arcade.Sprite {
     constructor(scene) {
-        super(scene, 96, 128, "player");
+        super(scene, 416, 256, "player");
 
         scene.add.existing(this);
         scene.physics.add.existing(this);

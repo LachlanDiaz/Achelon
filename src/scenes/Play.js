@@ -40,6 +40,7 @@ class Play extends Phaser.Scene {
         this.balloon.setOrigin(1, 1);
         this.balloon.anims.play('balloon_sway');
 
+
         this.char = new Char(this);
         this.physics.add.collider(this.char, this.player);
         this.char.setDepth(-1);
@@ -72,6 +73,14 @@ class Play extends Phaser.Scene {
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });
 
+
+        this.space = this.physics.add.sprite(416, 224).setSize(128, 128);
+        this.space.setScale(0.25);
+        //this.space.setOrigin(0.5, 0.5);
+        this.space.setOffset(64, 96);
+        this.space.anims.play('space_press');
+
+
         this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
         this.textBoxes.add(this.textbox);
         this.cameras.main.setViewport(0, 0, map.widthInPixels, map.heightInPixels).setZoom(2);
@@ -95,8 +104,13 @@ class Play extends Phaser.Scene {
             this.menu_activation();
         }
         if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            console.log("YOOSDAKD");
             this.scene_switch();
+        }
+        if (this.physics.overlap(this.space, head) && convo == false) {
+            this.space.setAlpha(1);
+        }
+        else {
+            this.space.setAlpha(0);
         }
 
     }
