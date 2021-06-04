@@ -72,6 +72,12 @@ class Play extends Phaser.Scene {
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });
 
+        this.sign1 = this.physics.add.sprite(352, 416).setSize(32, 32);
+        this.sign1.setOrigin(1, 1);
+
+        this.sign2 = this.physics.add.sprite(512, 128).setSize(32, 32);
+        this.sign2.setOrigin(1, 1);
+
 
         this.space = this.physics.add.sprite(416, 224).setSize(128, 128);
         this.space.setScale(0.25);
@@ -113,6 +119,14 @@ class Play extends Phaser.Scene {
         }
         if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             this.scene_switch();
+        }
+        if (this.physics.overlap(this.sign1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["My Super Cool Rocket Version 1.3123.314!", "Name Subject To Change...", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
+        if (this.physics.overlap(this.sign2, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["My Lab", "I should probably find my spare key, it should be under the tree to the right of here", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
         }
         if (this.physics.overlap(this.space, head) && convo == false) {
             this.space.setAlpha(1);
