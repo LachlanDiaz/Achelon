@@ -13,7 +13,7 @@ class Intro extends Phaser.Scene {
     this.bgMusic.play();
 
 
-    this.test = this.add.image(400, 400, 'test_image').setScale(0.5);
+    this.intro_img = this.add.image(400, -62.5, 'intro_img').setScale(0.5);
     this.camera_focal =  this.left_nub = this.physics.add.sprite(400, 400).setBodySize(3, 3);
 
     this.textBoxes = this.add.group({
@@ -44,8 +44,8 @@ class Intro extends Phaser.Scene {
      "I have to complete my rocket.",
      "I'm going to soar past the highest levels of the tower.",
      "Past all the upper dwellers who bask comfortably in the dregs of light left in our creator's trail.",
-     "I'll rise above it all.",
-     */"And ask God to stay...",
+     */"I'll rise above it all.",
+     "And ask God to stay...",
      ""], 'text_box');
 }
 
@@ -64,7 +64,7 @@ class Intro extends Phaser.Scene {
             });
 
             this.tweens.add({
-                targets: this.test,
+                targets: this.intro_img,
                 alpha: 0,
                 ease: 'Linear',
                 duration: 3000,
@@ -72,5 +72,8 @@ class Intro extends Phaser.Scene {
 
             this.time.delayedCall(3000, () => { this.scene.start('playScene'); });
         } 
+        if (this.intro_img.y < 1000) {
+            this.intro_img.y += 0.25;
+        }
     }
 }

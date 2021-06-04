@@ -9,6 +9,7 @@ class Key extends Phaser.Physics.Arcade.Sprite {
         this.body.allowGravity = false;
         this.body.immovable = true;
         this.scene.temp;
+        this.key_dead = false;
         //this.anims.play("item_shine")
     }
 
@@ -23,8 +24,9 @@ class Key extends Phaser.Physics.Arcade.Sprite {
             inventory.set("Lab Key", "The spare key to your lab");
            
         }
-        if (inventory.has("Lab Key") && convo == false) {
+        if (inventory.has("Lab Key") && convo == false && !this.key_dead) {
             this.body.destroy();
+            this.key_dead = true;
             this.alpha = 0;
         }
         

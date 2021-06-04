@@ -78,6 +78,9 @@ class Play extends Phaser.Scene {
         this.sign2 = this.physics.add.sprite(512, 128).setSize(32, 32);
         this.sign2.setOrigin(1, 1);
 
+        this.lab_door = this.physics.add.sprite(448, 128).setSize(32, 32);
+        this.lab_door.setOrigin(1, 1);
+        this.lab_door_locked = true;
 
         this.space = this.physics.add.sprite(416, 224).setSize(128, 128);
         this.space.setScale(0.25);
@@ -106,20 +109,35 @@ class Play extends Phaser.Scene {
         
 
     update() {
+        //General Object Updates
         this.textbox.update();
         this.player.update();
         this.char.update();
         this.move_nubs();
         this.key.update();
         this.box.update();
+
+        //Tutorial Area Updates
         this.arrows.x = this.player.x;
         this.arrows.y = this.player.y - 32;
+        if (this.physics.overlap(this.space, head) && convo == false) {
+            this.space.setAlpha(1);
+        }
+        else {
+            this.space.setAlpha(0);
+        }
+
+        //menu activation update
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
         }
+
+        //going to area 1
         if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.scene_switch();
+            this.scene_switch(this.scene.get('area_01Scene'));
         }
+
+        //sign updates
         if (this.physics.overlap(this.sign1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             this.textbox = new TextBox(this, ["My Super Cool Rocket Version 1.3123.314!", "Name Subject To Change...", ""], 'text_box');
             this.textBoxes.add(this.textbox);
@@ -128,13 +146,27 @@ class Play extends Phaser.Scene {
             this.textbox = new TextBox(this, ["My Lab", "I should probably find my spare key, it should be under the tree to the right of here", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
-        if (this.physics.overlap(this.space, head) && convo == false) {
-            this.space.setAlpha(1);
-        }
-        else {
-            this.space.setAlpha(0);
-        }
 
+        //Lab puzzle logic
+        if (this.physics.overlap(this.lab_door, head)) {
+
+            if (this.lab_door_locked == true && convo == false) {
+                if (!inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+                    this.textbox = new TextBox(this, ["My lab enterance.", "It's Locked.", 
+                    "I should probably find my spare key, it should be under the tree to the right of the lab", ""], 'text_box');
+                    this.textBoxes.add(this.textbox);
+                } else if (inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+                    this.textbox2 = new TextBox(this, ["The lab door unlocked.", ""], 'text_box');
+                    this.textBoxes.add(this.textbox2);
+                    this.lab_door_locked = false;
+                    //this.lab_door.destroy();
+                }
+            } else if (this.lab_door_locked == false && convo == false) {
+                console.log("heyyy")
+                this.scene_switch(this.scene.get('labScene'));
+            }
+
+        }
     }
 
     //constructs the player and 4 directional nubs for collision detection.
@@ -178,11 +210,11 @@ class Play extends Phaser.Scene {
         this.reconstruct_keybinds(menu_scene);
     }
 
-    scene_switch() {
+    scene_switch(scene) {
         //prev_scene = this;
-        next_scene = this.scene.get('area_01Scene');
+        next_scene = scene;
         //this.next_scene.place_inventory();
-        this.scene.switch('area_01Scene');
+        this.scene.switch(next_scene);
         this.reconstruct_keybinds(next_scene);
     }
 
