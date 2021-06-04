@@ -7,6 +7,7 @@ class Box extends Phaser.Physics.Arcade.Sprite {
         this.body.allowGravity = false;
         this.body.immovable = true;
         this.scene.physics.add.collider(this, this.scene.player);
+        this.setOrigin(1, 1);
         
     }
     

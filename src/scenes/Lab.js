@@ -5,7 +5,7 @@ class Lab extends Phaser.Scene {
 
     preload(){
         this.load.image("tiles_02", "./assets/img/tileset_rusty.png");
-        this.load.tilemapTiledJSON("lab", "./assets/config/area_01.json" );
+        this.load.tilemapTiledJSON("lab", "./assets/config/lab.json" );
     }
 
     create() {
@@ -21,15 +21,18 @@ class Lab extends Phaser.Scene {
 
         this.construct_player();
 
-        this.bolt_cutters = setSize(32,32);
+        this.bolt_cutters = this.physics.add.sprite(96, 352).setSize(32,32);
         this.bolt_cutters.setOrigin(1, 1);
         this.bolt_cutters.body.allowGravity = false;
         this.bolt_cutters.body.immovable = true;
+        this.bolt_cutters.anims.play("item_shine");
 
         this.box = new Box(this);
+        this.box.x = 224;
+        this.box.y = 352;
 
         //create map
-        const lab = this.make.tilemap({key: "area_01"});
+        const lab = this.make.tilemap({key: "lab"});
         const tilesetlab = lab.addTilesetImage("tileset_rusty", "tiles_02");
         //establishing layers
         const frontLayerlab = lab.createLayer("front", tilesetlab, 0, 0);
@@ -60,7 +63,6 @@ class Lab extends Phaser.Scene {
         
 
     update() {
-        this.textbox.update();
         this.player.update();
         this.move_nubs();
         this.box.update();
