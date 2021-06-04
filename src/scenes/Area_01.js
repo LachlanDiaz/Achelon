@@ -66,6 +66,8 @@ class Area_01 extends Phaser.Scene {
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
 
+        this.physics.world.setBounds(0, 0, map01.widthInPixels, map01.heightInPixels);
+
         this.textbox = new TextBox(this, ["Made it to 2nd area", "anotherrrr test", ""], 'text_box');
         this.textBoxes.add(this.textbox);
     }

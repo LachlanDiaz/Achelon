@@ -101,8 +101,11 @@ class Play extends Phaser.Scene {
 
         this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
         this.textBoxes.add(this.textbox);
+
         this.cameras.main.setViewport(0, 0, map.widthInPixels, map.heightInPixels).setZoom(2);
-        this.cameras.main.setBounds(0, 0, map.widthInPixels + 640, map.heightInPixels + 640);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     }
 
@@ -159,7 +162,6 @@ class Play extends Phaser.Scene {
                     this.textbox2 = new TextBox(this, ["The lab door unlocked.", ""], 'text_box');
                     this.textBoxes.add(this.textbox2);
                     this.lab_door_locked = false;
-                    //this.lab_door.destroy();
                 }
             } else if (this.lab_door_locked == false && convo == false) {
                 console.log("heyyy")
