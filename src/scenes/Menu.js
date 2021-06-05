@@ -9,7 +9,6 @@ class Menu extends Phaser.Scene {
 
     update () {
         if (Phaser.Input.Keyboard.JustDown(keyCTRL)) {
-            console.log(this.text);
             for (let i = 0; i < this.text.length; i++) {
             this.text[i].destroy();
             }
@@ -41,6 +40,5 @@ class Menu extends Phaser.Scene {
             this.counter += 1;
 
         }
-        console.log(this.text);
     }
 }
