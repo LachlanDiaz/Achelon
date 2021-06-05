@@ -35,6 +35,12 @@ class Load extends Phaser.Scene {
             startFrame: 0,
             endFrame: 1
         });
+        this.load.spritesheet('coin', 'img/coin.png', {
+            frameWidth: 32,
+            frameHeight: 32,
+            startFrame: 0,
+            endFrame: 2
+        });
         this.load.spritesheet('press_space', 'img/space_bar.png', {
             frameWidth: 260,
             frameHeight: 80,
@@ -118,6 +124,16 @@ class Load extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('balloon', {
                 start: 0,
                 end: 1,
+                first: 0
+            }),
+            frameRate: 2,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'coin_shine',
+            frames: this.anims.generateFrameNumbers('coin', {
+                start: 0,
+                end: 2,
                 first: 0
             }),
             frameRate: 2,

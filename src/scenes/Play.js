@@ -12,40 +12,47 @@ class Play extends Phaser.Scene {
 
     create() {
 
+        //create background music
         this.bgMusic = this.sound.add('junkyard', {volume: 0.10});
         this.bgMusic.loop = true;
         this.bgMusic.play();
 
+        //initalize controls
         cursors = this.input.keyboard.createCursorKeys();
         keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
         
-
+        //make texbox group
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
         
-        
+        //construct items you want under player
+        this.coin1 = this.physics.add.sprite(416, 352).setSize(32, 32);
+        this.coin1.setOrigin(1, 1);
+        this.coin1_here = true;
+        this.coin1.anims.play('coin_shine');
 
+        //construct player
         this.construct_player();
 
-        
-        
+        //start camera logic
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
-
        
-        
+        //temp (move to next scene)
         this.balloon = this.physics.add.sprite(448, 800).setSize(32, 32);
         this.balloon.setOrigin(1, 1);
         this.balloon.anims.play('balloon_sway');
 
-
+        //temp (move to next scene)
         this.char = new Char(this);
         this.physics.add.collider(this.char, this.player);
         this.char.setDepth(-1);
 
+        //initaliize key object
         this.key = new Key(this);
 
+        //initalize box object
         this.box = new Box(this);
 
         //create map
@@ -72,6 +79,7 @@ class Play extends Phaser.Scene {
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });
 
+        //some physics boxes to set up player interactinos with the space bar (use this logic).
         this.sign1 = this.physics.add.sprite(352, 416).setSize(32, 32);
         this.sign1.setOrigin(1, 1);
 
@@ -86,6 +94,7 @@ class Play extends Phaser.Scene {
         this.fence.setOrigin(1, 1);
         this.fence_locked = true;
 
+        //tutorial sprites and phyics
         this.space = this.physics.add.sprite(416, 224).setSize(128, 128);
         this.space.setScale(0.25);
         this.space.setOffset(64, 96);
@@ -103,15 +112,16 @@ class Play extends Phaser.Scene {
             }); 
         });
 
+        //first textbox
         this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
         this.textBoxes.add(this.textbox);
 
+        //more camera config
         this.cameras.main.setViewport(0, 0, this.map.widthInPixels, this.map.heightInPixels).setZoom(2);
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
+        //set world bounds
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-
-        
     }
 
         
@@ -227,6 +237,7 @@ class Play extends Phaser.Scene {
         this.down_nub.y = this.player.y + 17;
     }
 
+    //menu activation logic
     menu_activation() {
         curr_scene = this;
         menu_scene = this.scene.get('menuScene')
@@ -235,6 +246,7 @@ class Play extends Phaser.Scene {
         this.reconstruct_keybinds(menu_scene);
     }
 
+    //switching between scene logic
     scene_switch(scene) {
         //prev_scene = this;
         next_scene = scene;
@@ -243,6 +255,7 @@ class Play extends Phaser.Scene {
         this.reconstruct_keybinds(next_scene);
     }
 
+    //switching key logic
     reconstruct_keybinds(scene) {
         cursors = scene.input.keyboard.createCursorKeys();
         keyCTRL = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
