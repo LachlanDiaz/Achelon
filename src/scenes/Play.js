@@ -139,9 +139,8 @@ class Play extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
     }
 
-        
-
     update() {
+
         //General Object Updates
         this.textbox.update();
         this.player.update();
@@ -250,7 +249,7 @@ class Play extends Phaser.Scene {
     //constructs the player and 4 directional nubs for collision detection.
     construct_player() {
         this.player = new Player(this);
-        this.player.x = 256;
+        this.player.x = 352;
         this.player.y = 256;
         this.nubs = this.add.group();
         this.left_nub = this.physics.add.sprite(this.player.x - 17, this.player.y).setBodySize(3, 3);

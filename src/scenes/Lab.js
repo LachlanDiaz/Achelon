@@ -11,22 +11,19 @@ class Lab extends Phaser.Scene {
     create() {
         cursors = this.input.keyboard.createCursorKeys();
         keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
-        
 
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
         
-        
-
-        this.construct_player();
-
         this.bolt_cutters = this.physics.add.sprite(96, 352).setSize(32,32);
         this.bolt_cutters.setOrigin(1, 1);
         this.bolt_cutters.body.allowGravity = false;
         this.bolt_cutters.body.immovable = true;
         this.bolt_cutters.anims.play("item_shine");
         this.bolt_cutters_dead = false;
+
+        this.construct_player();
 
         this.box = new Box(this);
         this.box.x = 224;
@@ -101,8 +98,8 @@ class Lab extends Phaser.Scene {
     //constructs the player and 4 directional nubs for collision detection.
     construct_player() {
         this.player = new Player(this);
-        this.player.x = 400;
-        this.player.y = 400;
+        this.player.x = 672;
+        this.player.y = 384;
         this.nubs = this.add.group();
         this.left_nub = this.physics.add.sprite(this.player.x - 17, this.player.y).setBodySize(3, 3);
         this.nubs.add(this.left_nub);

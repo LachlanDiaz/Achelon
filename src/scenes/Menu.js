@@ -35,7 +35,7 @@ class Menu extends Phaser.Scene {
         }
         for (let [key, value] of inventory) {
             
-            this.text[this.counter] = this.add.text(100, this.pos_y, key +  ": " + value, menuConfig).setScale(0.1);
+            this.text[this.counter] = this.add.text(100, this.pos_y, key +  ": " + value, menuConfig).setScale(0.2);
             this.pos_y += 100;
             this.counter += 1;
 
