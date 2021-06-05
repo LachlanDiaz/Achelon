@@ -38,6 +38,7 @@ let next_scene;
 let curr_scene;
 let menu_scene;
 let inventory = new Map();
+let coins = 0;
 let dialogSpeed = 6;
 let convo = false;
 let movement = true;

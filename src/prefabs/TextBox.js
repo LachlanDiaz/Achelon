@@ -7,7 +7,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
         this.done = false;
         movement = false;
         convo = true;
-        this.contents = text
+        this.contents = text;
         this.counter = 0;
         this.line = this.contents[this.counter]; 
         this.counter++;

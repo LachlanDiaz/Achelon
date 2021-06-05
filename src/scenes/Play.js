@@ -4,7 +4,6 @@ class Play extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("tiles_01", "./assets/img/tileset_clean.png");
         this.load.image("tiles_02", "./assets/img/tileset_rusty.png");
         this.load.tilemapTiledJSON("map_01", "./assets/config/map_01.json" );
         this.load.tilemapTiledJSON("tutorial", "./assets/config/tutorial.json" );
@@ -39,6 +38,9 @@ class Play extends Phaser.Scene {
 
         //construct player
         this.construct_player();
+
+        //construct coins
+        inventory.set("Coins", coins.toString());
 
         //start camera logic
         this.cameras.main.setRoundPixels(true);
@@ -228,7 +230,19 @@ class Play extends Phaser.Scene {
             this.coin1.body.destroy();
             this.space.body.destroy();
             this.coin1.setAlpha(0);
+            ++coins;
+            inventory.set("Coins", coins.toString());
             this.coin1_here = false;
+        }
+        //coin2 logic
+        if (this.physics.overlap(this.coin2, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["Ah, another coin!", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+            this.coin2.body.destroy();
+            this.coin2.setAlpha(0);
+            ++coins;
+            inventory.set("Coins", coins.toString());
+            this.coin2_here = false;
         }
 
     }

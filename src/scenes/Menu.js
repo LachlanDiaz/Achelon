@@ -4,10 +4,15 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        //this.text = [];
     }
 
     update () {
         if (Phaser.Input.Keyboard.JustDown(keyCTRL)) {
+            console.log(this.text);
+            for (let i = 0; i < this.text.length; i++) {
+            this.text[i].destroy();
+            }
             this.scene.switch(curr_scene); 
             this.reconstruct_keybinds(curr_scene);
         }
@@ -19,7 +24,8 @@ class Menu extends Phaser.Scene {
     }
 
     place_inventory() {
-        if (this.text) this.text = "";
+        this.text = [];
+        this.counter = 0;
         this.pos_y = 100;
         let menuConfig = {
             fontFamily: 'font1',
@@ -29,10 +35,12 @@ class Menu extends Phaser.Scene {
             wordWrap: { width: 3600 }
         }
         for (let [key, value] of inventory) {
-            this.text += this.add.text(100,this.pos_y, key +  ": " + value, menuConfig).setScale(0.1);
+            
+            this.text[this.counter] = this.add.text(100, this.pos_y, key +  ": " + value, menuConfig).setScale(0.1);
             this.pos_y += 100;
+            this.counter += 1;
 
         }
-
+        console.log(this.text);
     }
 }
