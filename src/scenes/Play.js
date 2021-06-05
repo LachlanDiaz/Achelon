@@ -206,8 +206,8 @@ class Play extends Phaser.Scene {
 
         //coin1 logic
         if (this.physics.overlap(this.coin1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.textbox = new TextBox(this, ["Ah, I got a coin!", "I should try using   [Space]   to interact with the world around me.",
-            "Oh! I can also use   [Shift]   to run.", "I should check how many coins I have buy using   [ctrl]   to open my inventory!", ""], 'text_box');
+            this.textbox = new TextBox(this, ["Ah, I got a coin!", "I should try using [Space] to interact with the world around me.",
+            "Oh! I can also use [Shift] to run.", "I should check how many coins I have by using [ctrl] to open my inventory!", ""], 'text_box');
             this.textBoxes.add(this.textbox);
             this.coin1.body.destroy();
             this.coin1.setAlpha(0);
