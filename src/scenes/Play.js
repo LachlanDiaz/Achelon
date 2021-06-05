@@ -35,7 +35,7 @@ class Play extends Phaser.Scene {
 
        
         
-        this.balloon = this.physics.add.sprite(416, 800).setSize(32, 32);
+        this.balloon = this.physics.add.sprite(448, 800).setSize(32, 32);
         this.balloon.setOrigin(1, 1);
         this.balloon.anims.play('balloon_sway');
 
@@ -49,24 +49,24 @@ class Play extends Phaser.Scene {
         this.box = new Box(this);
 
         //create map
-        const map = this.make.tilemap({key: "tutorial"});
-        const tileset00 = map.addTilesetImage("tileset_rusty", "tiles_02");
+        this.map = this.make.tilemap({key: "tutorial"});
+        this.tileset00 = this.map.addTilesetImage("tileset_rusty", "tiles_02");
         //establishing layers
-        const frontLayer = map.createLayer("front", tileset00, 0, 0);
-        frontLayer.setDepth(0);
-        const worldLayer = map.createLayer("world", tileset00, 0, 0);
-        worldLayer.setDepth(-2);
-        const treeLayer = map.createLayer("tree edges", tileset00, 0, 0);
-        treeLayer.setDepth(-2);
-        const groundLayer = map.createLayer("ground", tileset00, 0, 0);
-        groundLayer.setDepth(-3);
+        this.frontLayer = this.map.createLayer("front", this.tileset00, 0, 0);
+        this.frontLayer.setDepth(0);
+        this.worldLayer = this.map.createLayer("world", this.tileset00, 0, 0);
+        this.worldLayer.setDepth(-2);
+        this.treeLayer = this.map.createLayer("tree edges", this.tileset00, 0, 0);
+        this.treeLayer.setDepth(-2);
+        this.groundLayer = this.map.createLayer("ground", this.tileset00, 0, 0);
+        this.groundLayer.setDepth(-3);
         //add collision
-        worldLayer.setCollisionByProperty({ collides: true });
-        this.physics.add.collider(this.player, worldLayer);
-        this.physics.add.collider(this.box, worldLayer); // please remove scene does not have box
+        this.worldLayer.setCollisionByProperty({ collides: true });
+        this.physics.add.collider(this.player, this.worldLayer);
+        this.physics.add.collider(this.box, this.worldLayer); // please remove scene does not have box
         //debug collision
-        const debugGraphics = this.add.graphics().setAlpha(0.5);
-        worldLayer.renderDebug(debugGraphics, {
+        this.debugGraphics = this.add.graphics().setAlpha(0.5);
+        this.worldLayer.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
@@ -81,6 +81,10 @@ class Play extends Phaser.Scene {
         this.lab_door = this.physics.add.sprite(448, 128).setSize(32, 32);
         this.lab_door.setOrigin(1, 1);
         this.lab_door_locked = true;
+
+        this.fence = this.physics.add.sprite(416, 800).setSize(32, 32);
+        this.fence.setOrigin(1, 1);
+        this.fence_locked = true;
 
         this.space = this.physics.add.sprite(416, 224).setSize(128, 128);
         this.space.setScale(0.25);
@@ -102,11 +106,12 @@ class Play extends Phaser.Scene {
         this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
         this.textBoxes.add(this.textbox);
 
-        this.cameras.main.setViewport(0, 0, map.widthInPixels, map.heightInPixels).setZoom(2);
-        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.setViewport(0, 0, this.map.widthInPixels, this.map.heightInPixels).setZoom(2);
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
+        
     }
 
         
@@ -146,7 +151,7 @@ class Play extends Phaser.Scene {
             this.textBoxes.add(this.textbox);
         }
         if (this.physics.overlap(this.sign2, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.textbox = new TextBox(this, ["My Lab", "I should probably find my spare key, it should be under the tree to the right of here", ""], 'text_box');
+            this.textbox = new TextBox(this, ["My Lab", "I should probably find my spare key, it should be under the tree to the right of here.", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
 
@@ -156,18 +161,36 @@ class Play extends Phaser.Scene {
             if (this.lab_door_locked == true && convo == false) {
                 if (!inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
                     this.textbox = new TextBox(this, ["My lab enterance.", "It's Locked.", 
-                    "I should probably find my spare key, it should be under the tree to the right of the lab", ""], 'text_box');
+                    "I should probably find my spare key, it should be under the tree to the right of the lab.", ""], 'text_box');
                     this.textBoxes.add(this.textbox);
                 } else if (inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
                     this.textbox2 = new TextBox(this, ["The lab door unlocked.", ""], 'text_box');
                     this.textBoxes.add(this.textbox2);
+                    this.worldLayer.putTileAtWorldXY(43, 416, 96);
                     this.lab_door_locked = false;
                 }
             } else if (this.lab_door_locked == false && convo == false) {
                 console.log("heyyy")
                 this.scene_switch(this.scene.get('labScene'));
             }
+        }
 
+        //bolt cutter logic
+        if (this.physics.overlap(this.fence, head)) {
+            if (this.fence_locked == true && convo == false) { 
+                if (!inventory.has("Bolt Cutters") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+                    this.textbox = new TextBox(this, ["Looks Like I'll need something to cut the fence.", ""], 'text_box');
+                    this.textBoxes.add(this.textbox);
+                } else if (inventory.has("Bolt Cutters") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+                    this.textbox = new TextBox(this, ["You cut the fence.", ""], 'text_box');
+                    this.textBoxes.add(this.textbox);
+                    this.worldLayer.putTileAtWorldXY(0, 384, 768);
+                    this.fence_locked = false;
+                } 
+            } else if (this.fence_locked == false && convo == false) {
+                console.log("heyyy")
+                this.scene_switch(this.scene.get('area_01Scene'));
+            }
         }
     }
 
