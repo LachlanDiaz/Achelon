@@ -13,13 +13,25 @@ class TextBox extends Phaser.GameObjects.Sprite {
         this.counter++;
         this.setText(this.line);
         this.line = this.contents[this.counter];
+
+
+        this.spaceConfig = {
+            fontFamily: 'font1',
+            fontSize: '72px',
+            color: '#0000000',
+            align: 'left',
+            lineSpacing: 100,
+            wordWrap: { width: 3600 }
+
         }
+    }
 
     update() {
         if (convo == true && this.done == true && Phaser.Input.Keyboard.JustDown(cursors.space)) {
             console.log("destoyed");
             //destory text
             this.text.destroy();
+            this.prompt.destroy();
             this.done = false;
             if (this.line == "") {
                 this.destroy();
@@ -63,6 +75,7 @@ class TextBox extends Phaser.GameObjects.Sprite {
         this.text.setText(this.text.text + this.dialog[this.eventCounter - 1]);
         if (this.eventCounter === this.dialog.length) {
             this.done = true;
+            this.prompt = this.scene.add.text(this.scene.cameras.main.midPoint.x + 80, this.scene.cameras.main.midPoint.y + 165, '[Space]', this.spaceConfig).setScale(0.2);
             this.timedEvent.remove();
         }
     }
