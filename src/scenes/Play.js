@@ -95,8 +95,9 @@ class Play extends Phaser.Scene {
         this.fence_locked = true;
 
         //tutorial sprites and phyics
-        this.space = this.physics.add.sprite(416, 224).setSize(128, 128);
+        this.space = this.physics.add.sprite(400, 304).setSize(128, 128);
         this.space.setScale(0.25);
+        //this.space.setOrigin(4, 4);
         this.space.setOffset(64, 96);
         this.space.anims.play('space_press');
 
@@ -138,7 +139,7 @@ class Play extends Phaser.Scene {
         //Tutorial Area Updates
         this.arrows.x = this.player.x;
         this.arrows.y = this.player.y - 32;
-        if (this.physics.overlap(this.space, head) && convo == false) {
+        if (this.physics.overlap(this.space, head) && convo == false && this.coin1_here) {
             this.space.setAlpha(1);
         }
         else {
@@ -202,6 +203,17 @@ class Play extends Phaser.Scene {
                 this.scene_switch(this.scene.get('area_01Scene'));
             }
         }
+
+        //coin1 logic
+        if (this.physics.overlap(this.coin1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["Ah, I got a coin!", "I should try using   [Space]   to interact with the world around me.",
+            "Oh! I can also use   [Shift]   to run.", "I should check how many coins I have buy using   [ctrl]   to open my inventory!", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+            this.coin1.body.destroy();
+            this.coin1.setAlpha(0);
+            this.coin1_here = false;
+        }
+
     }
 
     //constructs the player and 4 directional nubs for collision detection.
