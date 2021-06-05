@@ -32,6 +32,11 @@ class Play extends Phaser.Scene {
         this.coin1_here = true;
         this.coin1.anims.play('coin_shine');
 
+        this.coin2 = this.physics.add.sprite(544, 64).setSize(32, 32);
+        this.coin2.setOrigin(1, 1);
+        this.coin2_here = true;
+        this.coin2.anims.play('coin_shine');
+
         //construct player
         this.construct_player();
 
@@ -54,6 +59,8 @@ class Play extends Phaser.Scene {
 
         //initalize box object
         this.box = new Box(this);
+        this.box.x = 608;
+        this.box.y = 128;
 
         //create map
         this.map = this.make.tilemap({key: "tutorial"});
@@ -86,6 +93,9 @@ class Play extends Phaser.Scene {
         this.sign2 = this.physics.add.sprite(512, 128).setSize(32, 32);
         this.sign2.setOrigin(1, 1);
 
+        this.sign3 = this.physics.add.sprite(640, 128).setSize(32, 32);
+        this.sign3.setOrigin(1, 1);
+
         this.lab_door = this.physics.add.sprite(448, 128).setSize(32, 32);
         this.lab_door.setOrigin(1, 1);
         this.lab_door_locked = true;
@@ -114,7 +124,9 @@ class Play extends Phaser.Scene {
         });
 
         //first textbox
-        this.textbox = new TextBox(this, ["test please find phyics body and press pace when facing it (arrow keys movement).", "another test", ""], 'text_box');
+        this.textbox = new TextBox(this, ["My Rocket is almost done.", "I just a few more things that i need to collect.", 
+        "I need an engine, some fuel, and the core.", "Looks like I'll have to go out in the world to find the rest of what I need.",
+        "I can use the [arrow keys] to start moving around.", ""], 'text_box');
         this.textBoxes.add(this.textbox);
 
         //more camera config
@@ -165,6 +177,10 @@ class Play extends Phaser.Scene {
             this.textbox = new TextBox(this, ["My Lab", "I should probably find my spare key, it should be under the tree to the right of here.", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
+        if (this.physics.overlap(this.sign3, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["I can move boxes by holding [space] and moving in any direction.", "Looks like I'll need to move that box to get that coin behind it.", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
 
         //Lab puzzle logic
         if (this.physics.overlap(this.lab_door, head)) {
@@ -190,7 +206,7 @@ class Play extends Phaser.Scene {
         if (this.physics.overlap(this.fence, head)) {
             if (this.fence_locked == true && convo == false) { 
                 if (!inventory.has("Bolt Cutters") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-                    this.textbox = new TextBox(this, ["Looks Like I'll need something to cut the fence.", ""], 'text_box');
+                    this.textbox = new TextBox(this, ["Looks Like I'll need something to cut the fence.", "I think I had a pair of bolt cutters back at the lab.", ""], 'text_box');
                     this.textBoxes.add(this.textbox);
                 } else if (inventory.has("Bolt Cutters") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
                     this.textbox = new TextBox(this, ["You cut the fence.", ""], 'text_box');
@@ -210,6 +226,7 @@ class Play extends Phaser.Scene {
             "Oh! I can also use [Shift] to run.", "I should check how many coins I have by using [ctrl] to open my inventory!", ""], 'text_box');
             this.textBoxes.add(this.textbox);
             this.coin1.body.destroy();
+            this.space.body.destroy();
             this.coin1.setAlpha(0);
             this.coin1_here = false;
         }
