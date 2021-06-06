@@ -21,7 +21,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Title, Menu, Intro, Play, Lab, Area_01, Mechanics, CoinMaze, Forest],
+    scene: [Load, Title, Credits, Menu, Intro, Play, Lab, Area_01, Mechanics, CoinMaze, Forest],
     pixelArt: true
 };
 
