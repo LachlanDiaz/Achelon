@@ -23,9 +23,6 @@ class Forest extends Phaser.Scene {
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
-        
-        //construct items you want under player
-
 
         //construct player
         this.construct_player();
@@ -39,7 +36,7 @@ class Forest extends Phaser.Scene {
         this.balloon.setOrigin(1, 1);
         this.balloon.anims.play('balloon_sway');
 
-        //temp (move to next scene)
+        //initialize npc(s) 
         this.npcHood = new npcHood(this);
         this.physics.add.collider(this.npcHood, this.player);
         this.npcHood.setDepth(-1);
@@ -78,6 +75,14 @@ class Forest extends Phaser.Scene {
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });*/
 
+        //fireflies!
+        var fireflies = this.map.createFromObjects('Objects', {
+            name: "firefly",
+            key: 'sprite_atlas',
+            frame: {frame: 'firefly_01'}
+        })
+        this.anims.play('firefly_anim', fireflies)
+
         //some physics boxes to set up player interactinos with the space bar (use this logic).
         this.door = this.physics.add.sprite(160, 384).setSize(32, 32);
         this.door.setOrigin(1, 1);
@@ -87,7 +92,6 @@ class Forest extends Phaser.Scene {
 
         this.sign3 = this.physics.add.sprite(640, 128).setSize(32, 32);
         this.sign3.setOrigin(1, 1);
-
 
         this.arrows = this.add.sprite(this.player.x, this.player.y - 32).setSize(24, 24);
         this.arrows.setScale(1.5);

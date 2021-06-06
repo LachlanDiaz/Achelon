@@ -78,6 +78,30 @@ class Load extends Phaser.Scene {
             repeat: -1
         });
         this.anims.create({
+            key: 'firefly_anim',
+            frames: this.anims.generateFrameNames('sprite_atlas', {
+                prefix: 'firefly_',
+                start: 1,
+                end: 7,
+                suffix: '',
+                zeroPad: 2
+            }),
+            frameRate: 4,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'smoke_anim',
+            frames: this.anims.generateFrameNames('sprite_atlas', {
+                prefix: 'smoke_',
+                start: 1,
+                end: 6,
+                suffix: '',
+                zeroPad: 2
+            }),
+            frameRate: 4,
+            repeat: -1
+        });
+        this.anims.create({
             key: 'dWalk',
             defaultTextureKey: 'sprite_atlas',
             frames: [
