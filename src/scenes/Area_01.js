@@ -20,19 +20,23 @@ class Area_01 extends Phaser.Scene {
         this.coin1.setOrigin(1, 1);
         this.coin1_here = true;
         this.coin1.anims.play('coin_shine');
+
+        this.conductor = new Conductor(this);
+        this.boy = new Boy1(this);
         
         this.construct_player();
+        this.physics.add.collider(this.conductor, this.player);
+        this.physics.add.collider(this.boy, this.player);
 
         this.box = new Box(this);
         this.box.x = 1184;
         this.box.y = 160;
         this.box.setDepth(-1);
 
-        this.boy = new Boy1(this);
-        this.physics.add.collider(this.boy, this.player);
         
-        this.conductor = new Conductor(this);
-        this.physics.add.collider(this.conductor, this.player);
+        
+        
+        
 
         //create map
         this.map01 = this.make.tilemap({key: "area_01"});

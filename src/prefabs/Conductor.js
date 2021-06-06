@@ -1,6 +1,6 @@
 class Conductor extends Phaser.Physics.Arcade.Sprite {
     constructor(scene) {
-        super(scene, 1280, 1440);
+        super(scene, 1280, 1440, 'conductor_sprite');
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -9,7 +9,7 @@ class Conductor extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(1, 1);
         this.scene.temp;
         this.end_convo = false;
-        this.anims.play("kid_jig");
+        //this.anims.play("kid_jig");
     }
 
 
@@ -18,7 +18,7 @@ class Conductor extends Phaser.Physics.Arcade.Sprite {
             convo = true;
             if (!this.end_convo && coins < 5) {
                 this.scene.temp = new TextBox(this.scene, ["Oh hello...", "Oh you want access to the higher levels?", 
-                "Of course! For 5 coins you can leave this trash...erm...I mean...rustic area.", "Hmmm it looks like you only have " + coins + " coins.",
+                "Of course! For 5 coins you can leave this trash...erm...I mean...rustic area for a chance to be closer to our one and only creator!", "Hmmm it looks like you only have " + coins + " coins.",
                 "Come back when you have enough.", ""], 'text_box');
                 this.end_convo = true;
                 this.scene.textBoxes.add(this.scene.temp);
