@@ -19,6 +19,7 @@ class Load extends Phaser.Scene {
         this.load.path = './assets/';
         // load graphics
         this.load.image('text_box', 'img/text_box1.png');
+        this.load.image('credits', 'img/Credits.png');
         this.load.image('player', 'img/char_sprite.png');
         this.load.image('box', 'img/box.png');
         this.load.image('intro_img', 'img/achelon_intro.png');
@@ -69,7 +70,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('area_01Scene');
+        this.scene.start('titleScene');
         //create global anims
         this.anims.create({
             key: 'item_shine',
