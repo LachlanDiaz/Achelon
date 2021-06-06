@@ -28,6 +28,7 @@ class Lab extends Phaser.Scene {
         this.box = new Box(this);
         this.box.x = 224;
         this.box.y = 352;
+        this.box.setDepth(-1);
 
         //create map
         const lab = this.make.tilemap({key: "lab"});
