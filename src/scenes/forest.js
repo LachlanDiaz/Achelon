@@ -25,10 +25,6 @@ class Forest extends Phaser.Scene {
         });
         
         //construct items you want under player
-        this.coin1 = this.physics.add.sprite(416, 352).setSize(32, 32);
-        this.coin1.setOrigin(1, 1);
-        this.coin1_here = true;
-        this.coin1.anims.play('coin_shine');
 
         this.coin2 = this.physics.add.sprite(544, 64).setSize(32, 32);
         this.coin2.setOrigin(1, 1);
@@ -149,12 +145,6 @@ class Forest extends Phaser.Scene {
         //Tutorial Area Updates
         this.arrows.x = this.player.x;
         this.arrows.y = this.player.y - 32;
-        if (this.physics.overlap(this.space, head) && convo == false && this.coin1_here) {
-            this.space.setAlpha(1);
-        }
-        else {
-            this.space.setAlpha(0);
-        }
 
         //menu activation update
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
@@ -220,16 +210,6 @@ class Forest extends Phaser.Scene {
             }
         }
 
-        //coin1 logic
-        if (this.physics.overlap(this.coin1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.textbox = new TextBox(this, ["Ah, I got a coin!", "I should try using [Space] to interact with the world around me.",
-            "Oh! I can also use [Shift] to run.", "I should check how many coins I have by using [ctrl] to open my inventory!", ""], 'text_box');
-            this.textBoxes.add(this.textbox);
-            this.coin1.body.destroy();
-            this.space.body.destroy();
-            this.coin1.setAlpha(0);
-            this.coin1_here = false;
-        }
 
     }
 
