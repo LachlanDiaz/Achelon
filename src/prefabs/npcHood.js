@@ -18,15 +18,16 @@ class npcHood extends Phaser.Physics.Arcade.Sprite {
             convo = true;
             console.log("speaking");
             if (!this.end_convo) {
-                this.scene.temp = new TextBox(this.scene, ["...", ".....", ".......",
-                    "Their bleeding eyes...", "...watch the mist.", ""], 'text_box');
+                this.scene.temp = new TextBox(this.scene, [".....", ".......", ".........",
+                    "Their bleeding eyes...", "...gaze up through the fog...", "Searching for God.", ""], 'text_box');
                 this.end_convo = true;
+                forest_talked = true;
             } else if (this.end_convo == true && inventory.has("Stone Eyes") && !inventory.has("Fading Soul")){
-                this.scene.temp = new TextBox(this.scene, ["...", "The blind one wants...", "...what the watcher had...", ""], 'text_box');
+                this.scene.temp = new TextBox(this.scene, [".....", "The blind one...", "...envies the watcher...", "...despite the pain...", ""], 'text_box');
             } else if (this.end_convo == true && inventory.has("Fading Soul")) {
                 this.scene.temp = new TextBox(this.scene, [".....", "Nothing above...", "Nothing at all...", ""], 'text_box');
             } else{
-                this.scene.temp = new TextBox(this.scene, ["...", "Bleeding eyes...", "...watching the mist.", ""], 'text_box');
+                this.scene.temp = new TextBox(this.scene, [".....", "Bleeding eyes...", "...watch the mist.", ""], 'text_box');
             }
             this.scene.textBoxes.add(this.scene.temp);
         }

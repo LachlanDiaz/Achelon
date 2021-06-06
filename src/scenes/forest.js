@@ -11,7 +11,7 @@ class Forest extends Phaser.Scene {
     create() {
 
         //create background music
-        this.bgMusic = this.sound.add('forest', {volume: 0.2});
+        this.bgMusic = this.sound.add('junkyard', {volume: 0.10});
         this.bgMusic.loop = true;
         this.bgMusic.play();
 
@@ -23,9 +23,6 @@ class Forest extends Phaser.Scene {
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
-        
-        //construct items you want under player
-
 
         //construct player
         this.construct_player();
@@ -33,8 +30,13 @@ class Forest extends Phaser.Scene {
         //start camera logic
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
-
+       
         //temp (move to next scene)
+        this.balloon = this.physics.add.sprite(448, 800).setSize(32, 32);
+        this.balloon.setOrigin(1, 1);
+        this.balloon.anims.play('balloon_sway');
+
+        //initialize npc(s) 
         this.npcHood = new npcHood(this);
         this.physics.add.collider(this.npcHood, this.player);
         this.npcHood.setDepth(-1);
@@ -42,6 +44,11 @@ class Forest extends Phaser.Scene {
         //initialize items
         this.eyes = new Eyes(this);
         this.soul = new Soul(this);
+
+        //initalize box object
+        this.box = new Box(this);
+        this.box.x = 608;
+        this.box.y = 128;
 
         //create map
         this.map = this.make.tilemap({key: "forest_map"});
@@ -68,12 +75,35 @@ class Forest extends Phaser.Scene {
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });*/
 
+        //fireflies!
+        var fireflies = this.map.createFromObjects('Objects', {
+            name: "firefly",
+            key: 'sprite_atlas',
+            frame: {frame: 'firefly_01'}
+        })
+        this.anims.play('firefly_anim', fireflies)
+
         //some physics boxes to set up player interactinos with the space bar (use this logic).
         this.door = this.physics.add.sprite(160, 384).setSize(32, 32);
         this.door.setOrigin(1, 1);
 
         this.window = this.physics.add.sprite(224, 384).setSize(32, 32);
         this.window.setOrigin(1, 1);
+
+        this.sign3 = this.physics.add.sprite(640, 128).setSize(32, 32);
+        this.sign3.setOrigin(1, 1);
+
+        this.arrows = this.add.sprite(this.player.x, this.player.y - 32).setSize(24, 24);
+        this.arrows.setScale(1.5);
+        this.arrows.anims.play('arrows_press');
+        this.time.delayedCall(3000, () => { 
+            this.tweens.add({
+            targets: this.arrows,
+            alpha: 0,
+            ease: 'Linear',
+            duration: 5000,
+            }); 
+        });
 
         //more camera config
         this.cameras.main.setViewport(0, 0, this.map.widthInPixels, this.map.heightInPixels).setZoom(2);
@@ -97,10 +127,21 @@ class Forest extends Phaser.Scene {
         this.move_nubs();
         this.eyes.update();
         this.soul.update();
+        this.box.update();
+
+        //Tutorial Area Updates
+        this.arrows.x = this.player.x;
+        this.arrows.y = this.player.y - 32;
 
         //menu activation update
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
+        }
+
+        //going to area 1
+        if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            //this.scene_switch(this.scene.get('area_01Scene'));
+            this.scene_switch(this.scene.get('forestScene'));
         }
 
         //sign updates
@@ -112,6 +153,12 @@ class Forest extends Phaser.Scene {
             this.textbox = new TextBox(this, ["There are two points of light in there, but the house is otherwise pitch-black.", "Why are those lights so steady?.", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
+        if (this.physics.overlap(this.sign3, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["I can move boxes by holding [space] and moving in any direction.", "Looks like I'll need to move that box to get that coin behind it.", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
+
+
     }
 
     //constructs the player and 4 directional nubs for collision detection.
