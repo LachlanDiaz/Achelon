@@ -21,7 +21,7 @@ class Eyes extends Phaser.Physics.Arcade.Sprite {
             if (this.eyes_dead == false && !this.end_convo){
                 console.log("grant us eyes");
                 this.scene.temp = new TextBox(this.scene, ["Red fluid pours from the statue's face.", ".....",
-                    "There are stone eyes in the angel's face. Perhaps I should take them.", ""], 'text_box');
+                    "There are stone eyes in the angel's face. Perhaps I should take them.", "*You took the stone eyes...*",""], 'text_box');
                 this.end_convo = true;
                 this.eyes_dead = true;
                 inventory.set("Stone Eyes", "Stone eyes taken from a bleeding statue. Still covered in damp red fluid.");

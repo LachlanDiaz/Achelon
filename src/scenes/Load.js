@@ -60,10 +60,7 @@ class Load extends Phaser.Scene {
         this.load.audio('junkyard', 'audio/Junkyard.wav');
         this.load.audio('forest', 'audio/Castle.wav');
         this.load.audio('village', 'audio/Theme.wav');
-
-
-        //loadfont
-
+        this.load.audio('ending', 'audio/Ending.wav');
     }
 
     create() {
