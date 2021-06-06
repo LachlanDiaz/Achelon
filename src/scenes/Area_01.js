@@ -21,12 +21,6 @@ class Area_01 extends Phaser.Scene {
 
         this.construct_player();
 
-        
-        
-        
-
-       
-        
         this.balloon = this.physics.add.sprite(96, 360);
         this.balloon.anims.play('balloon_sway');
 
