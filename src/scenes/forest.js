@@ -11,7 +11,7 @@ class Forest extends Phaser.Scene {
     create() {
 
         //create background music
-        this.bgMusic = this.sound.add('forest', {volume: 0.2});
+        this.bgMusic = this.sound.add('forest', {volume: 0.20});
         this.bgMusic.loop = true;
         this.bgMusic.play();
 
@@ -23,9 +23,6 @@ class Forest extends Phaser.Scene {
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
-        
-        //construct items you want under player
-
 
         //construct player
         this.construct_player();
@@ -34,7 +31,7 @@ class Forest extends Phaser.Scene {
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
 
-        //temp (move to next scene)
+        //initialize npc(s) 
         this.npcHood = new npcHood(this);
         this.physics.add.collider(this.npcHood, this.player);
         this.npcHood.setDepth(-1);
@@ -67,6 +64,14 @@ class Forest extends Phaser.Scene {
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });*/
+
+        //fireflies!
+        var fireflies = this.map.createFromObjects('Objects', {
+            name: "firefly",
+            key: 'sprite_atlas',
+            frame: {frame: 'firefly_01'}
+        })
+        this.anims.play('firefly_anim', fireflies)
 
         //some physics boxes to set up player interactinos with the space bar (use this logic).
         this.door = this.physics.add.sprite(160, 384).setSize(32, 32);
@@ -102,6 +107,7 @@ class Forest extends Phaser.Scene {
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
         }
+
 
         //sign updates
         if (this.physics.overlap(this.door, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {

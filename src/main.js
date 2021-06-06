@@ -40,6 +40,7 @@ let menu_scene;
 let inventory = new Map();
 let coins = 0;
 let package_delivered = false;
+let forest_talked = false;
 let dialogSpeed = 6;
 let convo = false;
 let movement = true;
