@@ -21,7 +21,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Title, Menu, Intro, Play, Lab, Area_01, Forest],
+    scene: [Load, Title, Menu, Intro, Play, Lab, Area_01, Mechanics, CoinMaze, Forest],
     pixelArt: true
 };
 
@@ -39,6 +39,7 @@ let curr_scene;
 let menu_scene;
 let inventory = new Map();
 let coins = 0;
+let package_delivered = false;
 let dialogSpeed = 6;
 let convo = false;
 let movement = true;

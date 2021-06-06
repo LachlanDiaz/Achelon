@@ -70,7 +70,7 @@ class Intro extends Phaser.Scene {
                 duration: 3000,
             });
 
-            this.time.delayedCall(3000, () => { this.scene.start('forestScene'); });
+            this.time.delayedCall(3000, () => { this.scene.start('mechanicScene'); });
         } 
         if (this.intro_img.y < 1000) {
             this.intro_img.y += 0.25;
