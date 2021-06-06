@@ -20,19 +20,19 @@ class Area_01 extends Phaser.Scene {
         this.coin1.setOrigin(1, 1);
         this.coin1_here = true;
         this.coin1.anims.play('coin_shine');
-
-        this.balloon = this.physics.add.sprite(96, 360);
-        this.balloon.anims.play('balloon_sway');
         
         this.construct_player();
 
         this.box = new Box(this);
         this.box.x = 1184;
         this.box.y = 160;
+        this.box.setDepth(-1);
 
         this.boy = new Boy1(this);
         this.physics.add.collider(this.boy, this.player);
-        this.box.setDepth(-1);
+        
+        this.conductor = new Conductor(this);
+        this.physics.add.collider(this.conductor, this.player);
 
         //create map
         this.map01 = this.make.tilemap({key: "area_01"});
@@ -83,13 +83,18 @@ class Area_01 extends Phaser.Scene {
 
         this.left_house = this.physics.add.sprite(640, 896).setSize(32, 32);
         this.left_house.setOrigin(1, 1);
+
+        this.balloon = this.physics.add.sprite(1408, 1408);
+        this.balloon.setOrigin(1, 1);
+        this.balloon.anims.play('balloon_sway');
     }
 
     update() {
         //general prefab updates
         this.player.update();
-        this.boy.update();
         this.move_nubs();
+        this.boy.update();
+        this.conductor.update();  
         this.box.update();
 
         //menu updates
@@ -124,6 +129,7 @@ class Area_01 extends Phaser.Scene {
             this.textBoxes.add(this.textbox);
             this.coin1.body.destroy();
             this.coin1.setAlpha(0);
+            coins = 4; //for testing purposes please delete after
             ++coins;
             inventory.set("Coins", coins.toString());
             this.coin1_here = false;
@@ -154,6 +160,16 @@ class Area_01 extends Phaser.Scene {
             } else if (package_delivered) {
                 this.textbox = new TextBox(this, ["You knock on the door...", "There's no response...", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
+            }
+        }
+
+        //balloon logic
+        if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            if (!inventory.has("Ticket")) {
+                this.textbox = new TextBox(this, ["I can take this balloon the the higher levels.", "But I need to purchase a ticket first.", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+            } else if (inventory.has("Ticket")) {
+                this.scene_switch(this.scene.get('mechanicScene'));
             }
         }
     }

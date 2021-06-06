@@ -5,7 +5,7 @@ class CoinMaze extends Phaser.Scene {
 
     preload(){
         this.load.image("tiles_02", "./assets/img/tileset_rusty.png");
-        this.load.tilemapTiledJSON("coin_room", "./assets/config/coin_room.json" );
+        this.load.tilemapTiledJSON("coin_maze", "./assets/config/coin_room.json" );
     }
 
     create() {
@@ -16,10 +16,15 @@ class CoinMaze extends Phaser.Scene {
             runChildUpdate: true    // make sure update runs on group children
         });
 
+        this.coin1 = this.physics.add.sprite(384, 64).setSize(32, 32);
+        this.coin1.setOrigin(1, 1);
+        this.coin1_here = true;
+        this.coin1.anims.play('coin_shine');
+
         this.construct_player();
 
         //create map
-        this.coins = this.make.tilemap({key: "coin_room"});
+        this.coins = this.make.tilemap({key: "coin_maze"});
         this.tilesetcoins = this.coins.addTilesetImage("tileset_rusty", "tiles_02");
         //establishing layers
         this.frontLayercoins = this.coins.createLayer("front", this.tilesetcoins, 0, 0);
@@ -33,14 +38,14 @@ class CoinMaze extends Phaser.Scene {
         this.physics.add.collider(this.player, this.worldLayercoins);
 
         //debug collision
-        const debugGraphics = this.add.graphics().setAlpha(0.5);
-        this.worldLayercoins.renderDebug(debugGraphics, {
+        this.debugGraphics = this.add.graphics().setAlpha(0.5);
+        this.worldLayercoins.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });
 
-        this.outside_door = this.physics.add.sprite(224, 784).setSize(32, 16);
+        this.outside_door = this.physics.add.sprite(224, 816).setSize(32, 16);
         this.outside_door.setOrigin(1, 1);
         
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
@@ -64,13 +69,24 @@ class CoinMaze extends Phaser.Scene {
         if (this.physics.overlap(this.outside_door, head)  && convo == false) {
             this.scene_switch(this.scene.get('area_01Scene'));
         }
+
+        //coin1 logic
+        if (this.physics.overlap(this.coin1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["Ah, another coin!", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+            this.coin1.body.destroy();
+            this.coin1.setAlpha(0);
+            ++coins;
+            inventory.set("Coins", coins.toString());
+            this.coin1_here = false;
+        }
     }
 
     //constructs the player and 4 directional nubs for collision detection.
     construct_player() {
         this.player = new Player(this);
         this.player.x = 208;
-        this.player.y = 400;
+        this.player.y = 800;
         this.nubs = this.add.group();
         this.left_nub = this.physics.add.sprite(this.player.x - 17, this.player.y).setBodySize(3, 3);
         this.nubs.add(this.left_nub);

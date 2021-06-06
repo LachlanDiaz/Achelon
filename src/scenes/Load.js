@@ -22,6 +22,8 @@ class Load extends Phaser.Scene {
         this.load.image('player', 'img/char_sprite.png');
         this.load.image('box', 'img/box.png');
         this.load.image('intro_img', 'img/achelon_intro.png');
+        this.load.image('menu_bg', 'img/menu_bg.png');
+        this.load.image('menu_fg', 'img/menu_fg.png');
         this.load.atlas('sprite_atlas', 'img/sprite_atlas.png', 'config/sprites.json');
         this.load.spritesheet('boy', 'img/kid_sprite.png', {
             frameWidth: 32,
@@ -55,11 +57,12 @@ class Load extends Phaser.Scene {
         });
         //load audio
         this.load.audio('bleep', 'audio/Bloop.wav');
+        this.load.audio('title', 'audio/Main_Menu_Achelon.wav');
         this.load.audio('intro', 'audio/MusicBox.wav');
         this.load.audio('junkyard', 'audio/Junkyard.wav');
-
-        //loadfont
-
+        this.load.audio('forest', 'audio/Castle.wav');
+        this.load.audio('village', 'audio/Theme.wav');
+        this.load.audio('ending', 'audio/Ending.wav');
     }
 
     create() {
