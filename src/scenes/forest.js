@@ -26,10 +26,6 @@ class Forest extends Phaser.Scene {
         
         //construct items you want under player
 
-        this.coin2 = this.physics.add.sprite(544, 64).setSize(32, 32);
-        this.coin2.setOrigin(1, 1);
-        this.coin2_here = true;
-        this.coin2.anims.play('coin_shine');
 
         //construct player
         this.construct_player();
@@ -44,12 +40,13 @@ class Forest extends Phaser.Scene {
         this.balloon.anims.play('balloon_sway');
 
         //temp (move to next scene)
-        this.char = new Char(this);
-        this.physics.add.collider(this.char, this.player);
-        this.char.setDepth(-1);
+        this.npcHood = new npcHood(this);
+        this.physics.add.collider(this.npcHood, this.player);
+        this.npcHood.setDepth(-1);
 
-        //initaliize key object
-        this.key = new Key(this);
+        //initialize items
+        this.eyes = new Eyes(this);
+        this.soul = new Soul(this);
 
         //initalize box object
         this.box = new Box(this);
@@ -74,12 +71,12 @@ class Forest extends Phaser.Scene {
         this.physics.add.collider(this.player, this.frontLayer);
         this.physics.add.collider(this.player, this.groundLayer);
         //debug collision
-        this.debugGraphics = this.add.graphics().setAlpha(0.2);
+        /*this.debugGraphics = this.add.graphics().setAlpha(0.2);
         this.worldLayer.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         //some physics boxes to set up player interactinos with the space bar (use this logic).
         this.door = this.physics.add.sprite(160, 384).setSize(32, 32);
@@ -91,20 +88,6 @@ class Forest extends Phaser.Scene {
         this.sign3 = this.physics.add.sprite(640, 128).setSize(32, 32);
         this.sign3.setOrigin(1, 1);
 
-        this.lab_door = this.physics.add.sprite(448, 128).setSize(32, 32);
-        this.lab_door.setOrigin(1, 1);
-        this.lab_door_locked = true;
-
-        this.fence = this.physics.add.sprite(416, 800).setSize(32, 32);
-        this.fence.setOrigin(1, 1);
-        this.fence_locked = true;
-
-        //tutorial sprites and phyics
-        this.space = this.physics.add.sprite(400, 304).setSize(128, 128);
-        this.space.setScale(0.25);
-        //this.space.setOrigin(4, 4);
-        this.space.setOffset(64, 96);
-        this.space.anims.play('space_press');
 
         this.arrows = this.add.sprite(this.player.x, this.player.y - 32).setSize(24, 24);
         this.arrows.setScale(1.5);
@@ -118,28 +101,28 @@ class Forest extends Phaser.Scene {
             }); 
         });
 
-        //first textbox
-        this.textbox = new TextBox(this, ["I've never seen anything of the forest other than the dark treetops.", 
-        "Does anyone live here?", "...", "I feel like I'm being watched...", ""], 'text_box');
-        this.textBoxes.add(this.textbox);
-
         //more camera config
         this.cameras.main.setViewport(0, 0, this.map.widthInPixels, this.map.heightInPixels).setZoom(2);
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
         //set world bounds
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+
+        //first textbox
+        /*this.textbox = new TextBox(this, ["I've never seen anything of the forest other than the dark treetops.", 
+            "Why are there so many statues...? Does anyone live here?", ".....", "I feel like I'm being watched...", ""], 'text_box');
+        this.textBoxes.add(this.textbox);*/
     }
 
         
 
     update() {
         //General Object Updates
-        this.textbox.update();
         this.player.update();
-        this.char.update();
+        this.npcHood.update();
         this.move_nubs();
-        this.key.update();
+        this.eyes.update();
+        this.soul.update();
         this.box.update();
 
         //Tutorial Area Updates
@@ -171,53 +154,14 @@ class Forest extends Phaser.Scene {
             this.textBoxes.add(this.textbox);
         }
 
-        //Lab puzzle logic
-        if (this.physics.overlap(this.lab_door, head)) {
-
-            if (this.lab_door_locked == true && convo == false) {
-                if (!inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-                    this.textbox = new TextBox(this, ["My lab enterance.", "It's Locked.", 
-                    "I should probably find my spare key, it should be under the tree to the right of the lab.", ""], 'text_box');
-                    this.textBoxes.add(this.textbox);
-                } else if (inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-                    this.textbox2 = new TextBox(this, ["The lab door unlocked.", ""], 'text_box');
-                    this.textBoxes.add(this.textbox2);
-                    this.worldLayer.putTileAtWorldXY(43, 416, 96);
-                    this.lab_door_locked = false;
-                }
-            } else if (this.lab_door_locked == false && convo == false) {
-                console.log("heyyy")
-                this.scene_switch(this.scene.get('labScene'));
-            }
-        }
-
-        //bolt cutter logic
-        if (this.physics.overlap(this.fence, head)) {
-            if (this.fence_locked == true && convo == false) { 
-                if (!inventory.has("Bolt Cutters") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-                    this.textbox = new TextBox(this, ["Looks Like I'll need something to cut the fence.", "I think I had a pair of bolt cutters back at the lab.", ""], 'text_box');
-                    this.textBoxes.add(this.textbox);
-                } else if (inventory.has("Bolt Cutters") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-                    this.textbox = new TextBox(this, ["You cut the fence.", ""], 'text_box');
-                    this.textBoxes.add(this.textbox);
-                    this.worldLayer.putTileAtWorldXY(0, 384, 768);
-                    this.fence_locked = false;
-                } 
-            } else if (this.fence_locked == false && convo == false) {
-                console.log("heyyy")
-                //this.scene_switch(this.scene.get('area_01Scene'));
-                this.scene_switch(this.scene.get('forestScene'));
-            }
-        }
-
 
     }
 
     //constructs the player and 4 directional nubs for collision detection.
     construct_player() {
         this.player = new Player(this);
-        this.player.x = 256;
-        this.player.y = 256;
+        this.player.x = 800;
+        this.player.y = 480;
         this.nubs = this.add.group();
         this.left_nub = this.physics.add.sprite(this.player.x - 17, this.player.y).setBodySize(3, 3);
         this.nubs.add(this.left_nub);
