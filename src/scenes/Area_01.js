@@ -12,41 +12,45 @@ class Area_01 extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys();
         keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
         
-
         this.textBoxes = this.add.group({
             runChildUpdate: true    // make sure update runs on group children
         });
-        
-        this.construct_player();
+
+        this.coin1 = this.physics.add.sprite(864, 64).setSize(32, 32);
+        this.coin1.setOrigin(1, 1);
+        this.coin1_here = true;
+        this.coin1.anims.play('coin_shine');
 
         this.balloon = this.physics.add.sprite(96, 360);
         this.balloon.anims.play('balloon_sway');
-
-        this.char = new Char(this);
-        this.physics.add.collider(this.char, this.player);
-        this.char.setDepth(-1);
-
-        this.key = new Key(this);
+        
+        this.construct_player();
 
         this.box = new Box(this);
+        this.box.x = 1184;
+        this.box.y = 160;
+
+        this.boy = new Boy1(this);
+        this.physics.add.collider(this.boy, this.player);
+        this.box.setDepth(-1);
 
         //create map
-        const map01 = this.make.tilemap({key: "area_01"});
-        const tileset01 = map01.addTilesetImage("tileset_rusty", "tiles_02");
+        this.map01 = this.make.tilemap({key: "area_01"});
+        this.tileset01 = this.map01.addTilesetImage("tileset_rusty", "tiles_02");
         //establishing layers
-        const frontLayer01 = map01.createLayer("front", tileset01, 0, 0);
-        frontLayer01.setDepth(0);
-        const worldLayer01 = map01.createLayer("world", tileset01, 0, 0);
-        worldLayer01.setDepth(-2);
-        const groundLayer01 = map01.createLayer("ground", tileset01, 0, 0);
-        groundLayer01.setDepth(-3);
+        this.frontLayer01 = this.map01.createLayer("front", this.tileset01, 0, 0);
+        this.frontLayer01.setDepth(0);
+        this.worldLayer01 = this.map01.createLayer("world", this.tileset01, 0, 0);
+        this.worldLayer01.setDepth(-2);
+        this.groundLayer01 = this.map01.createLayer("ground", this.tileset01, 0, 0);
+        this.groundLayer01.setDepth(-3);
         //add collision
-        worldLayer01.setCollisionByProperty({ collides: true });
-        this.physics.add.collider(this.player, worldLayer01);
-        this.physics.add.collider(this.box, worldLayer01); // please remove scene does not have box
+        this.worldLayer01.setCollisionByProperty({ collides: true });
+        this.physics.add.collider(this.player, this.worldLayer01);
+        this.physics.add.collider(this.box, this.worldLayer01); // please remove scene does not have box
         //debug collision
-        const debugGraphics = this.add.graphics().setAlpha(0.5);
-        worldLayer01.renderDebug(debugGraphics, {
+        this.debugGraphics = this.add.graphics().setAlpha(0.5);
+        this.worldLayer01.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
@@ -54,39 +58,111 @@ class Area_01 extends Phaser.Scene {
 
         
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
-        this.cameras.main.setBounds(0, 0, map01.widthInPixels, map01.heightInPixels);
+        this.cameras.main.setBounds(0, 0, this.map01.widthInPixels, this.map01.heightInPixels);
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
 
-        this.physics.world.setBounds(0, 0, map01.widthInPixels, map01.heightInPixels);
+        this.physics.world.setBounds(0, 0, this.map01.widthInPixels, this.map01.heightInPixels);
 
-        this.textbox = new TextBox(this, ["Made it to 2nd area", "anotherrrr test", ""], 'text_box');
-        this.textBoxes.add(this.textbox);
+        //some physics boxes to set up player interactinos with the space bar (use this logic).
+        this.sign1 = this.physics.add.sprite(1056, 224).setSize(32, 32);
+        this.sign1.setOrigin(1, 1);
+
+        this.to_tutorial = this.physics.add.sprite(352, 32).setSize(32, 32);
+        this.to_tutorial.setOrigin(1, 1);
+
+        this.mechanic_door = this.physics.add.sprite(1120, 160).setSize(32, 32);
+        this.mechanic_door.setOrigin(1, 1);
+
+        this.coin_door = this.physics.add.sprite(1344, 192).setSize(32, 32);
+        this.coin_door.setOrigin(1, 1);
+
+        this.right_house = this.physics.add.sprite(896, 896).setSize(32, 32);
+        this.right_house.setOrigin(1, 1);
+        this.wrong_person_talked = false;
+
+        this.left_house = this.physics.add.sprite(640, 896).setSize(32, 32);
+        this.left_house.setOrigin(1, 1);
     }
 
-        
-
     update() {
-        this.textbox.update();
+        //general prefab updates
         this.player.update();
-        this.char.update();
+        this.boy.update();
         this.move_nubs();
-        this.key.update();
         this.box.update();
-        if (convo == false && Phaser.Input.Keyboard.JustDown(cursors.space)) {
-            console.log(inventory.get("key"));
-        }
+
+        //menu updates
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
         }
 
+        //sign logic
+        if (this.physics.overlap(this.sign1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["Roy's Mechanics", "Looks like a mechanic shop.", "I wonder if they have any engines for sale.", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
+
+        //to_tutorial logic
+        if (this.physics.overlap(this.to_tutorial, head) && convo == false) {
+            this.scene_switch(this.scene.get('playScene'));
+        }
+
+        //to_mechanic logic
+        if (this.physics.overlap(this.mechanic_door, head) && convo == false) {
+            this.scene_switch(this.scene.get('mechanicScene'));
+        }
+
+         //to_coin_maze logic
+         if (this.physics.overlap(this.coin_door, head) && convo == false) {
+            this.scene_switch(this.scene.get('coinMazeScene'));
+        }
+
+        //coin1 logic
+        if (this.physics.overlap(this.coin1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["Ah, another coin!", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+            this.coin1.body.destroy();
+            this.coin1.setAlpha(0);
+            ++coins;
+            inventory.set("Coins", coins.toString());
+            this.coin1_here = false;
+        }
+
+        //package delivery logic
+        if (this.physics.overlap(this.left_house, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            if (inventory.has("Package") && !package_delivered) {
+                this.textbox = new TextBox(this, ["You knock on the door...", "Who is that?!", "Oh, you got a package for me?", 
+                "That old fart still makin' kids do all his errands, huh.", "Well whatever. Thanks I guess...", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+                package_delivered = true;
+                inventory.delete("Package");
+            } else if (package_delivered) {
+                this.textbox = new TextBox(this, ["You knock on the door...", "Huh, what you want a tip or something?!", "Go ask your boss then!", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+            }
+        }
+        if (this.physics.overlap(this.right_house, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            if (inventory.has("Package") && !package_delivered && !this.wrong_person_talked) {
+                this.textbox = new TextBox(this, ["You knock on the door...", "Who is that?!", "A package?", 
+                "I think you got the wrong house kid...", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+                this.wrong_person_talked = true;
+            } else if (inventory.has("Package") && !package_delivered && this.wrong_person_talked) {
+                this.textbox = new TextBox(this, ["You knock on the door...", "Please leave me alone...", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+            } else if (package_delivered) {
+                this.textbox = new TextBox(this, ["You knock on the door...", "There's no response...", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+            }
+        }
     }
 
     //constructs the player and 4 directional nubs for collision detection.
     construct_player() {
         this.player = new Player(this);
-        this.player.x = 400;
-        this.player.y = 400;
+        this.player.x = 336;
+        this.player.y = 48;
         this.nubs = this.add.group();
         this.left_nub = this.physics.add.sprite(this.player.x - 17, this.player.y).setBodySize(3, 3);
         this.nubs.add(this.left_nub);
@@ -121,6 +197,15 @@ class Area_01 extends Phaser.Scene {
         menu_scene.place_inventory();
         this.scene.switch('menuScene');
         this.reconstruct_keybinds(menu_scene);
+    }
+
+    //switching between scene logic
+    scene_switch(scene) {
+        //prev_scene = this;
+        next_scene = scene;
+        //this.next_scene.place_inventory();
+        this.scene.switch(next_scene);
+        this.reconstruct_keybinds(next_scene);
     }
 
     reconstruct_keybinds(scene) {
