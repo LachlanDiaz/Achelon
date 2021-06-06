@@ -16,8 +16,6 @@ class Box extends Phaser.Physics.Arcade.Sprite {
             this.grab_point = head;
         }
         if (this.scene.physics.overlap(this, this.grab_point) && cursors.space.isDown && convo == false) {
-            console.log(this.scene.player.body.velocity.x);
-            //this.body.velocity = this.scene.player.body.velocity;
             this.setVelocity(this.scene.player.body.velocity.x, this.scene.player.body.velocity.y);
         } else {
             this.setVelocity(0, 0);

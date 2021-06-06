@@ -22,6 +22,8 @@ class Load extends Phaser.Scene {
         this.load.image('player', 'img/char_sprite.png');
         this.load.image('box', 'img/box.png');
         this.load.image('intro_img', 'img/achelon_intro.png');
+        this.load.image('menu_bg', 'img/menu_bg.png');
+        this.load.image('menu_fg', 'img/menu_fg.png');
         this.load.atlas('sprite_atlas', 'img/sprite_atlas.png', 'config/sprites.json');
         this.load.spritesheet('boy', 'img/kid_sprite.png', {
             frameWidth: 32,

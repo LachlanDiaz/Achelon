@@ -25,7 +25,7 @@ class Boy1 extends Phaser.Physics.Arcade.Sprite {
                 this.scene.temp = new TextBox(this.scene, ["Talk to my Pop over at the mechanic shop.", "He might have an engine he's willin' to part with.", ""], 'text_box');
                 this.scene.textBoxes.add(this.scene.temp);
             } else if (inventory.has("Engine")) {
-                this.scene.temp = new TextBox(this.scene, ["Oh so he let you got the engine from him, huh?", "I'm not sure what you're using it for but good luck!", ""], 'text_box');
+                this.scene.temp = new TextBox(this.scene, ["Oh, so you got the engine from him, huh?", "I'm not sure what you're using it for but good luck!", ""], 'text_box');
                 this.scene.textBoxes.add(this.scene.temp);
             }
         }

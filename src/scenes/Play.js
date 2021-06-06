@@ -45,16 +45,6 @@ class Play extends Phaser.Scene {
         //start camera logic
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
-       
-        //temp (move to next scene)
-        this.balloon = this.physics.add.sprite(448, 800).setSize(32, 32);
-        this.balloon.setOrigin(1, 1);
-        this.balloon.anims.play('balloon_sway');
-
-        //temp (move to next scene)
-        this.char = new Char(this);
-        this.physics.add.collider(this.char, this.player);
-        this.char.setDepth(-1);
 
         //initaliize key object
         this.key = new Key(this);
@@ -144,7 +134,6 @@ class Play extends Phaser.Scene {
         //General Object Updates
         this.textbox.update();
         this.player.update();
-        this.char.update();
         this.move_nubs();
         this.key.update();
         this.box.update();
@@ -162,11 +151,6 @@ class Play extends Phaser.Scene {
         //menu activation update
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
-        }
-
-        //going to area 1
-        if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.scene_switch(this.scene.get('area_01Scene'));
         }
 
         //sign updates
@@ -196,9 +180,9 @@ class Play extends Phaser.Scene {
                     this.textBoxes.add(this.textbox2);
                     this.worldLayer.putTileAtWorldXY(43, 416, 96);
                     this.lab_door_locked = false;
+                    inventory.delete("Lab Key");
                 }
             } else if (this.lab_door_locked == false && convo == false) {
-                console.log("heyyy")
                 this.scene_switch(this.scene.get('labScene'));
             }
         }
@@ -214,9 +198,9 @@ class Play extends Phaser.Scene {
                     this.textBoxes.add(this.textbox);
                     this.worldLayer.putTileAtWorldXY(0, 384, 768);
                     this.fence_locked = false;
+                    inventory.delete("Bolt Cutters");
                 } 
             } else if (this.fence_locked == false && convo == false) {
-                console.log("heyyy")
                 this.scene_switch(this.scene.get('area_01Scene'));
             }
         }
