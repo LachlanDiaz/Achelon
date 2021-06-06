@@ -109,6 +109,16 @@ class Load extends Phaser.Scene {
             ],
             frameRate: 8
         });
+
+        this.anims.create({
+            key: 'hood_idle',
+            defaultTextureKey: 'sprite_atlas',
+            frames: [
+                {frame: 'hoodguy_01'}, {frame: 'hoodguy_02'}
+            ],
+            frameRate: 1,
+            repeat: -1
+        })
         this.anims.create({
             key: 'kid_jig',
             frames: this.anims.generateFrameNumbers('boy', {
