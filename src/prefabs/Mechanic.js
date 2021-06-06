@@ -1,6 +1,6 @@
 class Mechanic extends Phaser.Physics.Arcade.Sprite {
     constructor(scene) {
-        super(scene, 224, 160);
+        super(scene, 224, 160, 'mechanic_sprite');
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -9,7 +9,7 @@ class Mechanic extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(1, 1);
         this.scene.temp;
         this.end_convo = false;
-        this.anims.play("kid_jig");
+        //this.anims.play("kid_jig");
     }
 
 
@@ -26,7 +26,7 @@ class Mechanic extends Phaser.Physics.Arcade.Sprite {
                 inventory.set("Package", "Seems fragile, best not to shake it.");
             } else if (this.end_convo && !package_delivered) {
                 this.scene.temp = new TextBox(this.scene, ["Deliver that to the house with the rusted red pipe, then we'll talk about that engine.",
-                "And hurry it up will ya! It ain't agetting any brighter on the lower levels.",""], 'text_box');
+                "And hurry it up will ya! It ain't getting any brighter on the lower levels.",""], 'text_box');
                 this.scene.textBoxes.add(this.scene.temp);
             } else if (!inventory.has("Engine") && package_delivered) {
                 this.scene.temp = new TextBox(this.scene, ["Oh you delivered it?!", "Great! As promised here's your engine.",

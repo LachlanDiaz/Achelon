@@ -16,9 +16,10 @@ class Mechanics extends Phaser.Scene {
             runChildUpdate: true    // make sure update runs on group children
         });
 
-        this.construct_player();
-
         this.mechanic = new Mechanic(this);
+
+        this.construct_player();
+        this.physics.add.collider(this.mechanic, this.player);
 
         //create map
         this.mechanics = this.make.tilemap({key: "mechanics"});

@@ -24,6 +24,8 @@ class Load extends Phaser.Scene {
         this.load.image('intro_img', 'img/achelon_intro.png');
         this.load.image('title_bg', 'img/menu_bg.png');
         this.load.image('title_fg', 'img/menu_fg.png');
+        this.load.image('mechanic_sprite', 'img/mechanic_sprite.png');
+        this.load.image('conductor_sprite', 'img/conductor_sprite_left.png');
         this.load.atlas('sprite_atlas', 'img/sprite_atlas.png', 'config/sprites.json');
         this.load.spritesheet('boy', 'img/kid_sprite.png', {
             frameWidth: 32,
@@ -67,7 +69,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('playScene');
+        this.scene.start('area_01Scene');
         //create global anims
         this.anims.create({
             key: 'item_shine',
