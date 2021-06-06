@@ -53,6 +53,7 @@ class Play extends Phaser.Scene {
         this.box = new Box(this);
         this.box.x = 608;
         this.box.y = 128;
+        this.box.setDepth(-1);
 
         //create map
         this.map = this.make.tilemap({key: "tutorial"});

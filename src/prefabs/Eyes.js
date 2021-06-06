@@ -11,7 +11,6 @@ class Eyes extends Phaser.Physics.Arcade.Sprite {
         this.scene.temp;
         this.eyes_dead = false;
         this.end_convo = false;
-        //this.anims.play("item_shine")
     }
 
 
