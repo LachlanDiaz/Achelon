@@ -88,6 +88,9 @@ class Play extends Phaser.Scene {
         this.sign3 = this.physics.add.sprite(640, 128).setSize(32, 32);
         this.sign3.setOrigin(1, 1);
 
+        this.rocket = this.physics.add.sprite(432, 288).setSize(64, 32);
+        this.rocket.setOrigin(1, 1); 
+
         this.lab_door = this.physics.add.sprite(448, 128).setSize(32, 32);
         this.lab_door.setOrigin(1, 1);
         this.lab_door_locked = true;
@@ -167,6 +170,11 @@ class Play extends Phaser.Scene {
             this.textBoxes.add(this.textbox);
         }
 
+        if (this.physics.overlap(this.rocket, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            this.textbox = new TextBox(this, ["My Rocket.", "It still needs an engine, some fuel, and a core to function.", "I'll come back when I have them all.", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
+
         //Lab puzzle logic
         if (this.physics.overlap(this.lab_door, head)) {
 
@@ -178,7 +186,7 @@ class Play extends Phaser.Scene {
                 } else if (inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
                     this.textbox2 = new TextBox(this, ["The lab door unlocked.", ""], 'text_box');
                     this.textBoxes.add(this.textbox2);
-                    this.worldLayer.putTileAtWorldXY(43, 416, 96);
+                    this.worldLayer.putTileAtWorldXY(37, 416, 96);
                     this.lab_door_locked = false;
                     inventory.delete("Lab Key");
                 }
