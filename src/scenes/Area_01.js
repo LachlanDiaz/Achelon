@@ -17,8 +17,6 @@ class Area_01 extends Phaser.Scene {
             runChildUpdate: true    // make sure update runs on group children
         });
         
-        
-
         this.construct_player();
 
         this.balloon = this.physics.add.sprite(96, 360);
