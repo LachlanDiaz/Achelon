@@ -4,7 +4,7 @@ class Town02 extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("tiles", "./assets/img/tileset_clean.png");
+        this.load.image("tiles_cleaan", "./assets/img/tileset_clean.png");
         this.load.tilemapTiledJSON("town02_map", "./assets/config/town_02.json" );
     }
 
@@ -77,7 +77,7 @@ class Town02 extends Phaser.Scene {
 
         //create map
         this.map = this.make.tilemap({key: "town02_map"});
-        this.tileset = this.map.addTilesetImage("tileset_clean", "tiles");
+        this.tileset = this.map.addTilesetImage("tileset_clean", "tiles_clean");
         //establishing layers
         this.frontLayer = this.map.createLayer("front", this.tileset, 0, 0);
         this.frontLayer.setDepth(0);

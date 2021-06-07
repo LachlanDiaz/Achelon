@@ -4,7 +4,7 @@ class Forest extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("tiles", "./assets/img/tileset_forest.png");
+        this.load.image("tiles_forest", "./assets/img/tileset_forest.png");
         this.load.tilemapTiledJSON("forest_map", "./assets/config/forest.json" );
     }
 
@@ -46,7 +46,7 @@ class Forest extends Phaser.Scene {
 
         //create map
         this.map = this.make.tilemap({key: "forest_map"});
-        this.tileset = this.map.addTilesetImage("tileset_forest", "tiles");
+        this.tileset = this.map.addTilesetImage("tileset_forest", "tiles_forest");
         //establishing layers
         this.frontLayer = this.map.createLayer("front", this.tileset, 0, 0);
         this.frontLayer.setDepth(0);
