@@ -4,16 +4,16 @@ class Town01 extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("tiles", "./assets/img/tileset_clean.png");
+        this.load.image("tiles_clean", "./assets/img/tileset_clean.png");
         this.load.tilemapTiledJSON("town01_map", "./assets/config/town_01.json" );
     }
 
     create() {
 
-        //create background music
+        /*create background music
         this.bgMusic = this.sound.add('town', {volume: 0.20});
         this.bgMusic.loop = true;
-        this.bgMusic.play();
+        this.bgMusic.play();*/
 
         //initalize controls
         cursors = this.input.keyboard.createCursorKeys();
@@ -52,7 +52,7 @@ class Town01 extends Phaser.Scene {
 
         //create map
         this.map = this.make.tilemap({key: "town01_map"});
-        this.tileset = this.map.addTilesetImage("tileset_clean", "tiles");
+        this.tileset = this.map.addTilesetImage("tileset_clean", "tiles_clean");
         //establishing layers
         this.frontLayer = this.map.createLayer("front", this.tileset, 0, 0);
         this.frontLayer.setDepth(0);
@@ -64,12 +64,13 @@ class Town01 extends Phaser.Scene {
         this.worldLayer.setCollisionByProperty({ collides: true });
         this.physics.add.collider(this.player, this.worldLayer);
         //debug collision
+        /*
         this.debugGraphics = this.add.graphics().setAlpha(0.2);
         this.worldLayer.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         //more camera config
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
@@ -99,6 +100,10 @@ class Town01 extends Phaser.Scene {
 
         //balloon logic
         if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            BGM.stop(); 
+            BGM = this.sound.add('junkyard', {volume: 0.10});
+            BGM.loop = true;
+            BGM.play();
             this.scene_switch(this.scene.get('area_01Scene'));
         }
 

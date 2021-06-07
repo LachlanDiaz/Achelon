@@ -179,7 +179,7 @@
         {
          "columns":15,
          "firstgid":1,
-         "image":"tiledAssets\/tileset_forest.png",
+         "image":"..\/img\/tileset_forest.png",
          "imageheight":352,
          "imagewidth":480,
          "margin":0,

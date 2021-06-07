@@ -9,6 +9,13 @@ class Area_01 extends Phaser.Scene {
     }
 
     create() {
+
+        //uncomment for testing
+        /*
+        BGM = this.sound.add('junkyard', {volume: 0.00});
+        BGM.loop = true;
+        BGM.play();*/
+
         cursors = this.input.keyboard.createCursorKeys();
         keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
         
@@ -21,6 +28,11 @@ class Area_01 extends Phaser.Scene {
         this.coin1_here = true;
         this.coin1.anims.play('coin_shine');
 
+
+        this.roots = this.physics.add.sprite(352, 1600).setSize(96, 32);
+        this.roots.setOrigin(1, 1);
+        this.root_gone = false;
+
         this.conductor = new Conductor(this);
         this.boy = new Boy1(this);
         
@@ -31,12 +43,7 @@ class Area_01 extends Phaser.Scene {
         this.box = new Box(this);
         this.box.x = 1184;
         this.box.y = 160;
-        this.box.setDepth(-1);
-
-        
-        
-        
-        
+        this.box.setDepth(-1); 
 
         //create map
         this.map01 = this.make.tilemap({key: "area_01"});
@@ -53,12 +60,13 @@ class Area_01 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.worldLayer01);
         this.physics.add.collider(this.box, this.worldLayer01); // please remove scene does not have box
         //debug collision
+        /*
         this.debugGraphics = this.add.graphics().setAlpha(0.5);
         this.worldLayer01.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
@@ -133,7 +141,7 @@ class Area_01 extends Phaser.Scene {
             this.textBoxes.add(this.textbox);
             this.coin1.body.destroy();
             this.coin1.setAlpha(0);
-            coins = 4; //for testing purposes please delete after
+            //coins = 4; //for testing purposes please delete after
             ++coins;
             inventory.set("Coins", coins.toString());
             this.coin1_here = false;
@@ -167,13 +175,41 @@ class Area_01 extends Phaser.Scene {
             }
         }
 
-        //balloon logic
+        //Balloon Logic
         if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             if (!inventory.has("Ticket")) {
                 this.textbox = new TextBox(this, ["I can take this balloon the the higher levels.", "But I need to purchase a ticket first.", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             } else if (inventory.has("Ticket")) {
+                BGM.stop(); 
+                BGM = this.sound.add('town', {volume: 0.20});
+                BGM.loop = true;
+                BGM.play();
                 this.scene_switch(this.scene.get('town01Scene'));
+            }
+        }
+
+        //Roots Logic
+        if (this.physics.overlap(this.roots, head)) { 
+            if (!this.root_gone) {
+                if (!inventory.has("Rocket Fuel") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+                    this.textbox = new TextBox(this, ["A mess of roots blocks my path...", "I'll need to find a way to get rid of them.", "They look too thick to cut.", 
+                    "I wonder if I can melt them with something...", ""], 'text_box');
+                    this.textBoxes.add(this.textbox);
+                } else if (inventory.has("Rocket Fuel") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+                    this.textbox = new TextBox(this, ["*You used some of the Rocket Fuel to melt the roots in your path*", ""], 'text_box');
+                    this.textBoxes.add(this.textbox);
+                    this.frontLayer01.putTileAtWorldXY(0, 288, 1568);
+                    this.frontLayer01.putTileAtWorldXY(0, 320, 1568);
+                    this.frontLayer01.putTileAtWorldXY(0, 352, 1568);
+                    this.root_gone = true;
+                } 
+            } else if (this.root_gone && convo == false) {
+                BGM.stop(); 
+                BGM = this.sound.add('forest', {volume: 0.10});
+                BGM.loop = true;
+                BGM.play();
+                this.scene_switch(this.scene.get('forestScene'));
             }
         }
     }

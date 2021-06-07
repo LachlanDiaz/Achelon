@@ -24,7 +24,8 @@ class Soul extends Phaser.Physics.Arcade.Sprite {
             }
             else if (inventory.has("Stone Eyes") && this.end_convo == false) {
                 this.scene.temp = new TextBox(this.scene, ["Eyes!", "Grant me Eyes!", "Our soul for Eyes!",
-                    ".....", "It gave me a faint white...light?", ""], 'text_box');
+                    ".....", "It gave me a faint white...light?", "This looks to function as a core for my rocket...", 
+                    "I've got all the pieces now. I should go back to the rocket and assemble them all.", ""], 'text_box');
                 inventory.set("Fading Soul", "A faint, flickering light.");
                 inventory.delete("Stone Eyes");
                 console.log("soul get yay");
@@ -32,7 +33,7 @@ class Soul extends Phaser.Physics.Arcade.Sprite {
             }
             else {
                 this.scene.temp = new TextBox(this.scene, ["...Please...", "Don't leave us...",
-                    ".....", "Don't leave us here in the dark...", ""], 'text_box');        
+                    ".....", "Don't leave us here in the dark...", "I should head back to the rocket...", ""], 'text_box');        
             }
             this.scene.textBoxes.add(this.scene.temp);
             

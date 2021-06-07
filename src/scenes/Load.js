@@ -20,6 +20,7 @@ class Load extends Phaser.Scene {
         // load graphics
         this.load.image('text_box', 'img/text_box1.png');
         this.load.image('credits', 'img/Credits.png');
+        this.load.image('flash', 'img/flash.png');
         this.load.image('player', 'img/char_sprite.png');
         this.load.image('box', 'img/box.png');
         this.load.image('intro_img', 'img/achelon_intro.png');
@@ -76,7 +77,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('town01Scene');
+        this.scene.start('titleScene');
         //create global anims
         this.anims.create({
             key: 'item_shine',
@@ -88,6 +89,18 @@ class Load extends Phaser.Scene {
                 zeroPad: 2
             }),
             frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'rocket_blast',
+            frames: this.anims.generateFrameNames('sprite_atlas', {
+                prefix: 'rocket_',
+                start: 1,
+                end: 2,
+                suffix: '',
+                zeroPad: 2
+            }),
+            frameRate: 15,
             repeat: -1
         });
         this.anims.create({

@@ -7,6 +7,15 @@ class Title extends Phaser.Scene {
 
         this.bg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'title_bg').setOrigin(0, 0);
         this.fg = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'title_fg').setOrigin(0, 0);
+        this.title = this.add.sprite(148, 180, 'sprite_atlas', 'title_sprite');
+        this.title.setAlpha(0);
+        this.tweens.add({
+            targets: this.title,
+            alpha: 1,
+            ease: 'Linear',
+            duration: 3000,
+        });
+
 
         cursors = this.input.keyboard.createCursorKeys();
 
@@ -84,7 +93,7 @@ class Title extends Phaser.Scene {
                 duration: 3000,
             });
 
-            this.time.delayedCall(3000, () => { this.scene.start('town01Scene'); });
+            this.time.delayedCall(3000, () => { this.scene.start('introScene'); });
 
         } else if (this.menu_option == 2) {
             this.sound.play('selected', { volume: 0.4 });

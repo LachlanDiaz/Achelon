@@ -26,7 +26,7 @@ class Intro extends Phaser.Scene {
     this.cameras.main.startFollow(this.camera_focal);
 
     this.textbox = new TextBox(this, ["It was said that God fell from the sky.",
-     /*"A once proud being from the stars, had strayed too far from the rest of their kind and fell to the ground below.",
+     "A once proud being from the stars, had strayed too far from the rest of their kind and fell to the ground below.",
      "The crash from the fall made the wind and mountains. Fire was born from their scream. And water was pooled from their tears.", 
      "And from fragments of their soul that leaked out...",
      "We were born.", 
@@ -44,7 +44,7 @@ class Intro extends Phaser.Scene {
      "I have to complete my rocket.",
      "I'm going to soar past the highest levels of the tower.",
      "Past all the upper dwellers who bask comfortably in the dregs of light left in our creator's trail.",
-     */"I'll rise above it all.",
+     "I'll rise above it all.",
      "And ask God to stay...",
      ""], 'text_box');
 }
@@ -70,7 +70,7 @@ class Intro extends Phaser.Scene {
                 duration: 3000,
             });
 
-            this.time.delayedCall(3000, () => { this.scene.start('town01Scene'); });
+            this.time.delayedCall(3000, () => { this.scene.start('playScene'); });
         } 
         if (this.intro_img.y < 1000) {
             this.intro_img.y += 0.25;

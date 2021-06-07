@@ -4,7 +4,7 @@ class Town02 extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("tiles", "./assets/img/tileset_clean.png");
+        this.load.image("tiles_cleaan", "./assets/img/tileset_clean.png");
         this.load.tilemapTiledJSON("town02_map", "./assets/config/town_02.json" );
     }
 
@@ -77,7 +77,7 @@ class Town02 extends Phaser.Scene {
 
         //create map
         this.map = this.make.tilemap({key: "town02_map"});
-        this.tileset = this.map.addTilesetImage("tileset_clean", "tiles");
+        this.tileset = this.map.addTilesetImage("tileset_clean", "tiles_clean");
         //establishing layers
         this.frontLayer = this.map.createLayer("front", this.tileset, 0, 0);
         this.frontLayer.setDepth(0);
@@ -89,12 +89,13 @@ class Town02 extends Phaser.Scene {
         this.worldLayer.setCollisionByProperty({ collides: true });
         this.physics.add.collider(this.player, this.worldLayer);
         //debug collision
+        /*
         this.debugGraphics = this.add.graphics().setAlpha(0.2);
         this.worldLayer.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         //more camera config
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);

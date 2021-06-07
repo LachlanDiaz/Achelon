@@ -12,9 +12,9 @@ class Play extends Phaser.Scene {
     create() {
 
         //create background music
-        this.bgMusic = this.sound.add('junkyard', {volume: 0.10});
-        this.bgMusic.loop = true;
-        this.bgMusic.play();
+        BGM = this.sound.add('junkyard', {volume: 0.10});
+        BGM.loop = true;
+        BGM.play();
 
         //initalize controls
         cursors = this.input.keyboard.createCursorKeys();
@@ -72,12 +72,13 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.worldLayer);
         this.physics.add.collider(this.box, this.worldLayer); // please remove scene does not have box
         //debug collision
+        /*
         this.debugGraphics = this.add.graphics().setAlpha(0.5);
         this.worldLayer.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         //some physics boxes to set up player interactinos with the space bar (use this logic).
         this.sign1 = this.physics.add.sprite(352, 416).setSize(32, 32);
@@ -131,6 +132,14 @@ class Play extends Phaser.Scene {
 
         //set world bounds
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+
+
+        this.flash = this.add.image(400, 400, 'flash');
+        this.flash.setAlpha(0);
+        this.next_scene = false;
+        this.ending = false;
+
+        //inventory.set("Fading Soul", "A faint, flickering light.");
     }
 
     update() {
@@ -171,10 +180,41 @@ class Play extends Phaser.Scene {
             this.textBoxes.add(this.textbox);
         }
 
-        if (this.physics.overlap(this.rocket, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.textbox = new TextBox(this, ["My Rocket.", "It still needs an engine, some fuel, and a core to function.", "I'll come back when I have them all.", ""], 'text_box');
-            this.textBoxes.add(this.textbox);
+        if (this.physics.overlap(this.rocket, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false && !this.ending) {
+            if (!inventory.has("Fading Soul")) {
+                this.textbox = new TextBox(this, ["My Rocket.", "It still needs an engine, some fuel, and a core to function.", "I'll come back when I have them all.", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+            } else if (inventory.has("Fading Soul")) {
+                this.textbox = new TextBox(this, ["Looks like I have all the parts for the rocket.", "It's time to meet Achelon...", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+                this.next_scene = true;
+                this.ending = true;
+            }
         }
+
+        if (convo == false && this.next_scene) {
+            this.next_scene = false;
+            movement = false;
+
+            // add tween to fade out audio
+            this.tweens.add({
+                targets: BGM,
+                volume: 0,
+                ease: 'Linear',
+                duration: 3000,
+            });
+
+            this.tweens.add({
+                targets: this.flash,
+                alpha: 1,
+                ease: 'Linear',
+                duration: 3000,
+            });
+
+            this.time.delayedCall(3000, () => {
+                movement = true;
+                this.scene.start('endScene'); });
+    }
 
         //Lab puzzle logic
         if (this.physics.overlap(this.lab_door, head)) {
