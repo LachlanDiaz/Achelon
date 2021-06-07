@@ -36,7 +36,7 @@ class Town01 extends Phaser.Scene {
         this.sign2 = this.physics.add.sprite(416, 64).setSize(32,32);
         this.sign2.setOrigin(1, 1);
 
-        this.npc_01 = this.physics.add.sprite(384, 448, 'testing').setSize(32,32);
+        this.npc_01 = this.physics.add.sprite(384, 448, 'char3').setSize(32,32);
         this.npc_01.setOrigin(1, 1);
         this.npc_01.body.allowGravity = false;
         this.npc_01.body.immovable = true;

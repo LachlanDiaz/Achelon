@@ -25,6 +25,11 @@ class Load extends Phaser.Scene {
         this.load.image('intro_img', 'img/achelon_intro.png');
         this.load.image('title_bg', 'img/menu_bg.png');
         this.load.image('title_fg', 'img/menu_fg.png');
+        this.load.image('char2', 'img/char2.png');
+        this.load.image('char3', 'img/char3.png');
+        this.load.image('char4', 'img/char4.png');
+        this.load.image('char5', 'img/girl_1.png');
+        this.load.image('pastor', 'img/pastor.png');
         this.load.image('mechanic_sprite', 'img/mechanic_sprite.png');
         this.load.image('conductor_sprite', 'img/conductor_sprite_left.png');
         this.load.atlas('sprite_atlas', 'img/sprite_atlas.png', 'config/sprites.json');
