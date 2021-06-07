@@ -151,7 +151,7 @@ class Area_01 extends Phaser.Scene {
         if (this.physics.overlap(this.left_house, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             if (inventory.has("Package") && !package_delivered) {
                 this.textbox = new TextBox(this, ["You knock on the door...", "Who is that?!", "Oh, you got a package for me?", 
-                "That old fart still makin' kids do all his errands, huh.", "Well whatever. Thanks I guess...", ""], 'text_box');
+                "That old fart still makin' kids do all his errands, huh.", "Well, whatever. Thanks I guess...", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
                 package_delivered = true;
                 inventory.delete("Package");
@@ -167,7 +167,7 @@ class Area_01 extends Phaser.Scene {
                 this.textBoxes.add(this.textbox);
                 this.wrong_person_talked = true;
             } else if (inventory.has("Package") && !package_delivered && this.wrong_person_talked) {
-                this.textbox = new TextBox(this, ["You knock on the door...", "Please leave me alone...", ""], 'text_box');
+                this.textbox = new TextBox(this, ["You knock on the door...", "You again?! Leave me alone!", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             } else if (package_delivered) {
                 this.textbox = new TextBox(this, ["You knock on the door...", "There's no response...", ""], 'text_box');
@@ -197,7 +197,8 @@ class Area_01 extends Phaser.Scene {
                     "I wonder if I can melt them with something...", ""], 'text_box');
                     this.textBoxes.add(this.textbox);
                 } else if (inventory.has("Rocket Fuel") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-                    this.textbox = new TextBox(this, ["*You used some of the Rocket Fuel to melt the roots in your path*", ""], 'text_box');
+                    this.textbox = new TextBox(this, ["*You carefully pour some of the fuel on the gnarled roots blocking your way.*",
+                     "The strange fluid quickly eats through the roots, disintegrating them.", ""], 'text_box');
                     this.textBoxes.add(this.textbox);
                     this.frontLayer01.putTileAtWorldXY(0, 288, 1568);
                     this.frontLayer01.putTileAtWorldXY(0, 320, 1568);

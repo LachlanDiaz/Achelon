@@ -115,7 +115,7 @@ class Town01 extends Phaser.Scene {
         //Door & Sign Logics 
         if (this.physics.overlap(this.door_left, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             convo = true;
-            this.textbox = new TextBox(this, ["*You knock on the door...*", "Doesn't seem to be anyone home...", ""], 'text_box');
+            this.textbox = new TextBox(this, ["*You knock on the door...*", "There's no response...", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
         if (this.physics.overlap(this.door_right, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
@@ -139,7 +139,7 @@ class Town01 extends Phaser.Scene {
             convo = true;
             if (!this.npc_01_talked) {
                 this.textbox = new TextBox(this, ["Oh hello!", "You don't look like you're from around here...", "In any case, welcome to the upper levels.",
-                "We are blessed to have such an easly life so close to Achelon.", "You don't know that name?", "Why it's the name of our creator!", 
+                "We are blessed to have such an easy life so close to Achelon.", "You don't know that name?", "Why it's the name of our creator!", 
                 "Though many have forgotten it since their departure. Some seem to think Achelon is a myth now...", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
                 this.npc_01_talked = true;

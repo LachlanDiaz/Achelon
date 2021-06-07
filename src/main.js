@@ -1,3 +1,16 @@
+/*
+
+Final Game ARTG/CMPM 120
+Instructors: Hadiseh Gooran/Nathan Altice
+
+Team Members:
+    Lachlan Diaz
+    Kylien Le
+    Kendrick Long
+
+*/
+
+
 // game configureation
 // keep me honest
 'use strict';

@@ -93,7 +93,7 @@ class Title extends Phaser.Scene {
                 duration: 3000,
             });
 
-            this.time.delayedCall(3000, () => { this.scene.start('introScene'); });
+            this.time.delayedCall(3000, () => { this.scene.start('endScene'); });
 
         } else if (this.menu_option == 2) {
             this.sound.play('selected', { volume: 0.4 });

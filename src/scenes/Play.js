@@ -70,7 +70,7 @@ class Play extends Phaser.Scene {
         //add collision
         this.worldLayer.setCollisionByProperty({ collides: true });
         this.physics.add.collider(this.player, this.worldLayer);
-        this.physics.add.collider(this.box, this.worldLayer); // please remove scene does not have box
+        this.physics.add.collider(this.box, this.worldLayer); 
         //debug collision
         /*
         this.debugGraphics = this.add.graphics().setAlpha(0.5);
@@ -121,9 +121,9 @@ class Play extends Phaser.Scene {
         });
 
         //first textbox
-        this.textbox = new TextBox(this, ["My Rocket is almost done.", "I just a few more things that i need to collect.", 
-        "I need an engine, some fuel, and the core.", "Looks like I'll have to go out in the world to find the rest of what I need.",
-        "I can use the [arrow keys] to start moving around.", ""], 'text_box');
+        this.textbox = new TextBox(this, ["My Rocket is almost done...", "There are just a few more parts I haven't managed to get yet.", 
+        "I need an engine, some kind of fuel, and a core.", "Looks like I'll have to go out in the world to find the rest of what I need.",
+        "I can use the [arrow keys] to start moving around and [SHIFT] to run.", ""], 'text_box');
         this.textBoxes.add(this.textbox);
 
         //more camera config
@@ -172,7 +172,7 @@ class Play extends Phaser.Scene {
             this.textBoxes.add(this.textbox);
         }
         if (this.physics.overlap(this.sign2, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.textbox = new TextBox(this, ["My Lab", "I should probably find my spare key, it should be under the tree to the right of here.", ""], 'text_box');
+            this.textbox = new TextBox(this, ["My Lab", "I should probably find my spare key. I hid it under the roots of the tree to the right of here.", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
         if (this.physics.overlap(this.sign3, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
@@ -185,7 +185,11 @@ class Play extends Phaser.Scene {
                 this.textbox = new TextBox(this, ["My Rocket.", "It still needs an engine, some fuel, and a core to function.", "I'll come back when I have them all.", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             } else if (inventory.has("Fading Soul")) {
-                this.textbox = new TextBox(this, ["Looks like I have all the parts for the rocket.", "It's time to meet Achelon...", ""], 'text_box');
+                this.textbox = new TextBox(this, ["Looks like I have all the parts for the rocket.", "It's time to meet Achelon...", ".........",
+                "I don't know what's waiting for me above.", "It seems like no one living has seen Achelon, here, above, or below.",
+                "But we've built this tower for so long, and gotten nowhere.", "I have to try.", "Before none alive remember that our creator existed.",
+                "Before our desperate tower falls.", "Before the last light fades.....",
+                ""], 'text_box');
                 this.textBoxes.add(this.textbox);
                 this.next_scene = true;
                 this.ending = true;
@@ -221,7 +225,7 @@ class Play extends Phaser.Scene {
 
             if (this.lab_door_locked == true && convo == false) {
                 if (!inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-                    this.textbox = new TextBox(this, ["My lab enterance.", "It's Locked.", 
+                    this.textbox = new TextBox(this, ["My lab entrance.", "It's Locked.", 
                     "I should probably find my spare key, it should be under the tree to the right of the lab.", ""], 'text_box');
                     this.textBoxes.add(this.textbox);
                 } else if (inventory.has("Lab Key") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
@@ -257,7 +261,7 @@ class Play extends Phaser.Scene {
         //coin1 logic
         if (this.physics.overlap(this.coin1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             this.textbox = new TextBox(this, ["Ah, I got a coin!", "I should try using [Space] to interact with the world around me.",
-            "Oh! I can also use [Shift] to run.", "I should check how many coins I have by using [ctrl] to open my inventory!", ""], 'text_box');
+            "I should check how many coins I have by using [ctrl] to open my inventory!", ""], 'text_box');
             this.textBoxes.add(this.textbox);
             this.coin1.body.destroy();
             this.space.body.destroy();
