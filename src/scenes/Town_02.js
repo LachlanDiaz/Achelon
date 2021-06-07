@@ -10,11 +10,6 @@ class Town02 extends Phaser.Scene {
 
     create() {
 
-        //create background music
-        this.bgMusic = this.sound.add('forest', {volume: 0.20});
-        this.bgMusic.loop = true;
-        this.bgMusic.play();
-
         //initalize controls
         cursors = this.input.keyboard.createCursorKeys();
         keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
@@ -30,10 +25,6 @@ class Town02 extends Phaser.Scene {
         //start camera logic
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
-
-        //initialize npc(s) 
-
-        //initialize items
 
         //create map
         this.map = this.make.tilemap({key: "town02_map"});
@@ -55,21 +46,6 @@ class Town02 extends Phaser.Scene {
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });
-
-        //fireflies!
-        var fireflies = this.map.createFromObjects('Objects', {
-            name: "firefly",
-            key: 'sprite_atlas',
-            frame: {frame: 'firefly_01'}
-        })
-        this.anims.play('firefly_anim', fireflies)
-
-        //some physics boxes to set up player interactinos with the space bar (use this logic).
-        this.door = this.physics.add.sprite(160, 384).setSize(32, 32);
-        this.door.setOrigin(1, 1);
-
-        this.window = this.physics.add.sprite(224, 384).setSize(32, 32);
-        this.window.setOrigin(1, 1);
 
         //more camera config
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
@@ -93,13 +69,6 @@ class Town02 extends Phaser.Scene {
         //menu activation update
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
-        }
-
-
-        //sign updates
-        if (this.physics.overlap(this.door, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.textbox = new TextBox(this, ["The door is broken and firmly wedged in place. I can't see anything inside.", "Probably best not to do anything rash.", ""], 'text_box');
-            this.textBoxes.add(this.textbox);
         }
 
         //goto scene 1 logic

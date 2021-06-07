@@ -63,6 +63,7 @@ class Load extends Phaser.Scene {
         this.load.audio('intro', 'audio/MusicBox.wav');
         this.load.audio('junkyard', 'audio/Junkyard.wav');
         this.load.audio('forest', 'audio/Castle.wav');
+        this.load.audio('town', 'audio/Theme.wav');
         this.load.audio('title', 'audio/Main_Menu_Achelon.wav');
         this.load.audio('ending', 'audio/Ending.wav');
         this.load.audio('selecting', 'audio/Deselect.wav');
@@ -70,7 +71,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('titleScene');
+        this.scene.start('town01Scene');
         //create global anims
         this.anims.create({
             key: 'item_shine',

@@ -59,7 +59,7 @@
         {
          "columns":15,
          "firstgid":1,
-         "image":"tiledAssets\/tileset_clean.png",
+         "image":"..\/img\/tileset_clean.png",
          "imageheight":352,
          "imagewidth":480,
          "margin":0,
@@ -68,6 +68,24 @@
          "tilecount":165,
          "tileheight":32,
          "tiles":[
+                {
+                 "id":20,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":21,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
                 {
                  "id":30,
                  "properties":[

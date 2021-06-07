@@ -11,7 +11,7 @@ class Town01 extends Phaser.Scene {
     create() {
 
         //create background music
-        this.bgMusic = this.sound.add('forest', {volume: 0.20});
+        this.bgMusic = this.sound.add('town', {volume: 0.20});
         this.bgMusic.loop = true;
         this.bgMusic.play();
 
@@ -30,10 +30,6 @@ class Town01 extends Phaser.Scene {
         //start camera logic
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.startFollow(this.player);
-
-        //initialize npc(s) 
-
-        //initialize items
 
         //create map
         this.map = this.make.tilemap({key: "town01_map"});
@@ -56,32 +52,12 @@ class Town01 extends Phaser.Scene {
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });
 
-        //fireflies!
-        var fireflies = this.map.createFromObjects('Objects', {
-            name: "firefly",
-            key: 'sprite_atlas',
-            frame: {frame: 'firefly_01'}
-        })
-        this.anims.play('firefly_anim', fireflies)
-
-        //some physics boxes to set up player interactinos with the space bar (use this logic).
-        this.door = this.physics.add.sprite(160, 384).setSize(32, 32);
-        this.door.setOrigin(1, 1);
-
-        this.window = this.physics.add.sprite(224, 384).setSize(32, 32);
-        this.window.setOrigin(1, 1);
-
         //more camera config
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
         //set world bounds
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-
-        //first textbox
-        /*this.textbox = new TextBox(this, ["I've never seen anything of the forest other than the dark treetops.", 
-            "Why are there so many statues...? Does anyone live here?", ".....", "I feel like I'm being watched...", ""], 'text_box');
-        this.textBoxes.add(this.textbox);*/
 
         this.balloon = this.physics.add.sprite(352, 576);
         this.balloon.setOrigin(1, 1);
@@ -91,8 +67,6 @@ class Town01 extends Phaser.Scene {
         this.path = this.physics.add.sprite(352, 16).setSize(64, 16);
         this.path.setOrigin(1, 1);
     }
-
-        
 
     update() {
         //General Object Updates
@@ -104,24 +78,13 @@ class Town01 extends Phaser.Scene {
             this.menu_activation();
         }
 
-
-        //sign updates
-        if (this.physics.overlap(this.door, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.textbox = new TextBox(this, ["The door is broken and firmly wedged in place. I can't see anything inside.", "Probably best not to do anything rash.", ""], 'text_box');
-            this.textBoxes.add(this.textbox);
-        }
-        if (this.physics.overlap(this.window, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
-            this.textbox = new TextBox(this, ["There are two points of light in there, but the house is otherwise pitch-black.", "Why are those lights so steady?.", ""], 'text_box');
-            this.textBoxes.add(this.textbox);
-        }
-
         //balloon logic
         if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             this.scene_switch(this.scene.get('area_01Scene'));
         }
 
         //goto scene 2 logic
-        if (this.physics.overlap(this.path, head)  && convo == false) {
+        if (this.physics.overlap(this.path, head) && convo == false) {
             this.scene_switch(this.scene.get('town02Scene'));
         }
 
