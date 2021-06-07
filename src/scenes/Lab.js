@@ -45,12 +45,13 @@ class Lab extends Phaser.Scene {
         this.physics.add.collider(this.player, worldLayerlab);
         this.physics.add.collider(this.box, worldLayerlab); // please remove scene does not have box
         //debug collision
+        /*
         const debugGraphics = this.add.graphics().setAlpha(0.5);
         worldLayerlab.renderDebug(debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         this.lab_door = this.physics.add.sprite(704, 430).setSize(32, 16);
         this.lab_door.setOrigin(1, 1);

@@ -11,8 +11,8 @@ class Area_01 extends Phaser.Scene {
     create() {
 
         //uncomment for testing
-        /* 
-        BGM = this.sound.add('junkyard', {volume: 0.10});
+        /*
+        BGM = this.sound.add('junkyard', {volume: 0.00});
         BGM.loop = true;
         BGM.play();*/
 
@@ -44,9 +44,6 @@ class Area_01 extends Phaser.Scene {
         this.box.x = 1184;
         this.box.y = 160;
         this.box.setDepth(-1); 
-        
-        inventory.set("Rocket Fuel", "Made from the blood of Achelon. very corrosive and can melt anything it touches.");
-        
 
         //create map
         this.map01 = this.make.tilemap({key: "area_01"});
@@ -63,12 +60,13 @@ class Area_01 extends Phaser.Scene {
         this.physics.add.collider(this.player, this.worldLayer01);
         this.physics.add.collider(this.box, this.worldLayer01); // please remove scene does not have box
         //debug collision
+        /*
         this.debugGraphics = this.add.graphics().setAlpha(0.5);
         this.worldLayer01.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);
@@ -143,7 +141,7 @@ class Area_01 extends Phaser.Scene {
             this.textBoxes.add(this.textbox);
             this.coin1.body.destroy();
             this.coin1.setAlpha(0);
-            coins = 4; //for testing purposes please delete after
+            //coins = 4; //for testing purposes please delete after
             ++coins;
             inventory.set("Coins", coins.toString());
             this.coin1_here = false;

@@ -64,12 +64,13 @@ class Town01 extends Phaser.Scene {
         this.worldLayer.setCollisionByProperty({ collides: true });
         this.physics.add.collider(this.player, this.worldLayer);
         //debug collision
+        /*
         this.debugGraphics = this.add.graphics().setAlpha(0.2);
         this.worldLayer.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         //more camera config
         this.cameras.main.setViewport(0, 0, 800, 800).setZoom(2);

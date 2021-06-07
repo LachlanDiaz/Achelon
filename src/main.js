@@ -14,14 +14,14 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            //debug: true,
             gravity: {
                 x: 0,
                 y: 0
             }
         }
     },
-    scene: [Load, Title, Credits, Menu, Intro, Play, Lab, Area_01, Mechanics, CoinMaze, Forest, Town01, Town02],
+    scene: [Load, Title, Credits, Menu, Intro, End, Play, Lab, Area_01, Mechanics, CoinMaze, Forest, Town01, Town02],
     pixelArt: true
 };
 

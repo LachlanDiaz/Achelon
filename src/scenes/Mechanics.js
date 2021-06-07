@@ -36,12 +36,13 @@ class Mechanics extends Phaser.Scene {
         this.physics.add.collider(this.player, this.worldLayermechanics);
 
         //debug collision
+        /*
         this.debugGraphics = this.add.graphics().setAlpha(0.5);
         this.worldLayermechanics.renderDebug(this.debugGraphics, {
             tileColor: null, // Color of non-colliding tiles
             collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
             faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        // }); */
 
         this.outside_door = this.physics.add.sprite(224, 432).setSize(32, 16);
         this.outside_door.setOrigin(1, 1);
