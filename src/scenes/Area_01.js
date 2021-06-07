@@ -21,6 +21,11 @@ class Area_01 extends Phaser.Scene {
         this.coin1_here = true;
         this.coin1.anims.play('coin_shine');
 
+
+        this.roots = this.physics.add.sprite(352, 1600).setSize(96, 32);
+        this.roots.setOrigin(1, 1);
+        this.root_gone = false;
+
         this.conductor = new Conductor(this);
         this.boy = new Boy1(this);
         
@@ -31,11 +36,9 @@ class Area_01 extends Phaser.Scene {
         this.box = new Box(this);
         this.box.x = 1184;
         this.box.y = 160;
-        this.box.setDepth(-1);
-
+        this.box.setDepth(-1); 
         
-        
-        
+        this
         
 
         //create map
@@ -167,13 +170,33 @@ class Area_01 extends Phaser.Scene {
             }
         }
 
-        //balloon logic
+        //Balloon Logic
         if (this.physics.overlap(this.balloon, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             if (!inventory.has("Ticket")) {
                 this.textbox = new TextBox(this, ["I can take this balloon the the higher levels.", "But I need to purchase a ticket first.", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             } else if (inventory.has("Ticket")) {
                 this.scene_switch(this.scene.get('town01Scene'));
+            }
+        }
+
+        //Roots Logic
+        if (this.physics.overlap(this.roots, head)) { 
+            if (!this.root_gone) {
+                if (!inventory.has("Rocket Fuel") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+                    this.textbox = new TextBox(this, ["A mess of roots blocks my path...", "I'll need to find a way to get rid of them.", "They look too thick to cut.", 
+                    "I wonder if I can melt them with something...", ""], 'text_box');
+                    this.textBoxes.add(this.textbox);
+                } else if (inventory.has("Rocket Fuel") && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+                    this.textbox = new TextBox(this, ["*You used some of the Rocket Fuel to melt the roots in your path*", ""], 'text_box');
+                    this.textBoxes.add(this.textbox);
+                    this.frontLayer01.putTileAtWorldXY(0, 288, 1568);
+                    this.frontLayer01.putTileAtWorldXY(0, 320, 1568);
+                    this.frontLayer01.putTileAtWorldXY(0, 352, 1568);
+                    this.root_gone = true;
+                } 
+            } else if (this.root_gone) {
+                this.scene_switch(this.scene.get('forestScene'));
             }
         }
     }

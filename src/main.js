@@ -48,6 +48,7 @@ let check_left = true;
 let check_right = true;
 let check_up = true;
 let check_down = true;
+let BGM;
 
 
 

@@ -12,9 +12,9 @@ class Play extends Phaser.Scene {
     create() {
 
         //create background music
-        this.bgMusic = this.sound.add('junkyard', {volume: 0.10});
-        this.bgMusic.loop = true;
-        this.bgMusic.play();
+        BGM = this.sound.add('junkyard', {volume: 0.10});
+        BGM.loop = true;
+        BGM.play();
 
         //initalize controls
         cursors = this.input.keyboard.createCursorKeys();

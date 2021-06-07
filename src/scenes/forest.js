@@ -40,6 +40,10 @@ class Forest extends Phaser.Scene {
         this.eyes = new Eyes(this);
         this.soul = new Soul(this);
 
+        //to_junkyard
+        this.to_junkyard = this.physics.add.sprite(824, 512).setSize(32, 160);
+        this.to_junkyard.setOrigin(1, 1);
+
         //create map
         this.map = this.make.tilemap({key: "forest_map"});
         this.tileset = this.map.addTilesetImage("tileset_forest", "tiles");
@@ -87,10 +91,7 @@ class Forest extends Phaser.Scene {
         //set world bounds
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        //first textbox
-        /*this.textbox = new TextBox(this, ["I've never seen anything of the forest other than the dark treetops.", 
-            "Why are there so many statues...? Does anyone live here?", ".....", "I feel like I'm being watched...", ""], 'text_box');
-        this.textBoxes.add(this.textbox);*/
+        
     }
 
         
@@ -106,6 +107,10 @@ class Forest extends Phaser.Scene {
         //menu activation update
         if (convo == false && Phaser.Input.Keyboard.JustDown(keyCTRL)) {
             this.menu_activation();
+        }
+
+        if (this.physics.overlap(this.to_junkyard, head) && convo == false) {
+            this.scene_switch(this.scene.get('area_01Scene'));
         }
 
 

@@ -76,7 +76,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('town01Scene');
+        this.scene.start('titleScene');
         //create global anims
         this.anims.create({
             key: 'item_shine',
