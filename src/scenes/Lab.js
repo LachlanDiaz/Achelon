@@ -189,11 +189,12 @@ class Lab extends Phaser.Scene {
                 "Depending on your answer I'll decide whether or not it's wise to give you what you're asking for.", "*You reluctantly explain your goal*", 
                 "You're trying to reach Achelon?!", "Well I can't say that I think it's possible. But I admire your determination...", "...", "Fine...",
                 "Take this.", "*You got a vial of dark red liquid!*", "That there is blood from Achelon.", "We've been using it to keep some of the light around the village.",
-                "But we're running low.", "Honestly I don't know if what you're doing is going to work.", " But it's better than doing nothing...", ""], 'text_box');
+                "But we're running low.", "Honestly I don't know if what you're doing is going to work.", " But it's better than doing nothing...",
+                "Oh! And that blood is very corrosive. So be careful!", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
                 this.town_head_talked = true;
             } else if (this.town_head_talked) {
-                this.textbox =  new TextBox(this, ["A rocket huh...", "Could it be you're going to try and reach Achelon...", ""], 'text_box');
+                this.textbox =  new TextBox(this, ["Good Luck...", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             }
         }

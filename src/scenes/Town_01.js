@@ -24,8 +24,27 @@ class Town01 extends Phaser.Scene {
             runChildUpdate: true    // make sure update runs on group children
         });
 
+        this.door_right = this.physics.add.sprite(544, 288).setSize(32,32);
+        this.door_right.setOrigin(1, 1);
+
+        this.door_left = this.physics.add.sprite(96, 288).setSize(32,32);
+        this.door_left.setOrigin(1, 1);
+
+        this.sign1 = this.physics.add.sprite(288, 448).setSize(32,32);
+        this.sign1.setOrigin(1, 1);
+
+        this.sign2 = this.physics.add.sprite(416, 64).setSize(32,32);
+        this.sign2.setOrigin(1, 1);
+
+        this.npc_01 = this.physics.add.sprite(384, 448, 'testing').setSize(32,32);
+        this.npc_01.setOrigin(1, 1);
+        this.npc_01.body.allowGravity = false;
+        this.npc_01.body.immovable = true;
+        this.npc_01_talked = false;
+
         //construct player
         this.construct_player();
+        this.physics.add.collider(this.npc_01, this.player);
 
         //start camera logic
         this.cameras.main.setRoundPixels(true);
@@ -86,6 +105,43 @@ class Town01 extends Phaser.Scene {
         //goto scene 2 logic
         if (this.physics.overlap(this.path, head) && convo == false) {
             this.scene_switch(this.scene.get('town02Scene'));
+        }
+
+        //Door & Sign Logics 
+        if (this.physics.overlap(this.door_left, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            convo = true;
+            this.textbox = new TextBox(this, ["*You knock on the door...*", "Doesn't seem to be anyone home...", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
+        if (this.physics.overlap(this.door_right, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            convo = true;
+            this.textbox = new TextBox(this, ["*You knock on the door...*", "They might be out...", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
+        if (this.physics.overlap(this.sign1, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            convo = true;
+            this.textbox = new TextBox(this, ["Welcome to the Upper Levels!", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
+        if (this.physics.overlap(this.sign2, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            convo = true;
+            this.textbox = new TextBox(this, ["Viridian Village", "May our Creator's light forever shine!", ""], 'text_box');
+            this.textBoxes.add(this.textbox);
+        }
+
+        //NPC dialouge stuff
+        if (this.physics.overlap(this.npc_01, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
+            convo = true;
+            if (!this.npc_01_talked) {
+                this.textbox = new TextBox(this, ["Oh hello!", "You don't look like you're from around here...", "In any case, welcome to the upper levels.",
+                "We are blessed to have such an easly life so close to Achelon.", "You don't know that name?", "Why it's the name of our creator!", 
+                "Though many have forgotten it since their departure. Some seem to think Achelon is a myth now...", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+                this.npc_01_talked = true;
+            } else if (this.npc_01_talked) {
+                this.textbox =  new TextBox(this, ["Achelon is our creator's name!", "Remember it well!", ""], 'text_box');
+                this.textBoxes.add(this.textbox);
+            }
         }
 
     }
