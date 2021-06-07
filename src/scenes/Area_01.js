@@ -173,7 +173,7 @@ class Area_01 extends Phaser.Scene {
                 this.textbox = new TextBox(this, ["I can take this balloon the the higher levels.", "But I need to purchase a ticket first.", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             } else if (inventory.has("Ticket")) {
-                this.scene_switch(this.scene.get('mechanicScene'));
+                this.scene_switch(this.scene.get('town01Scene'));
             }
         }
     }

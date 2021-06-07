@@ -25,6 +25,11 @@ class Load extends Phaser.Scene {
         this.load.image('intro_img', 'img/achelon_intro.png');
         this.load.image('title_bg', 'img/menu_bg.png');
         this.load.image('title_fg', 'img/menu_fg.png');
+        this.load.image('char2', 'img/char2.png');
+        this.load.image('char3', 'img/char3.png');
+        this.load.image('char4', 'img/char4.png');
+        this.load.image('char5', 'img/girl_1.png');
+        this.load.image('pastor', 'img/pastor.png');
         this.load.image('mechanic_sprite', 'img/mechanic_sprite.png');
         this.load.image('conductor_sprite', 'img/conductor_sprite_left.png');
         this.load.atlas('sprite_atlas', 'img/sprite_atlas.png', 'config/sprites.json');
@@ -63,6 +68,7 @@ class Load extends Phaser.Scene {
         this.load.audio('intro', 'audio/MusicBox.wav');
         this.load.audio('junkyard', 'audio/Junkyard.wav');
         this.load.audio('forest', 'audio/Castle.wav');
+        this.load.audio('town', 'audio/Theme.wav');
         this.load.audio('title', 'audio/Main_Menu_Achelon.wav');
         this.load.audio('ending', 'audio/Ending.wav');
         this.load.audio('selecting', 'audio/Deselect.wav');
@@ -70,7 +76,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('titleScene');
+        this.scene.start('town01Scene');
         //create global anims
         this.anims.create({
             key: 'item_shine',
