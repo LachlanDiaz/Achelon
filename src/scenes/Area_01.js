@@ -9,6 +9,13 @@ class Area_01 extends Phaser.Scene {
     }
 
     create() {
+
+        //uncomment for testing
+        /* 
+        BGM = this.sound.add('junkyard', {volume: 0.10});
+        BGM.loop = true;
+        BGM.play();*/
+
         cursors = this.input.keyboard.createCursorKeys();
         keyCTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
         
@@ -38,7 +45,7 @@ class Area_01 extends Phaser.Scene {
         this.box.y = 160;
         this.box.setDepth(-1); 
         
-        this
+        inventory.set("Rocket Fuel", "Made from the blood of Achelon. very corrosive and can melt anything it touches.");
         
 
         //create map
@@ -176,6 +183,10 @@ class Area_01 extends Phaser.Scene {
                 this.textbox = new TextBox(this, ["I can take this balloon the the higher levels.", "But I need to purchase a ticket first.", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             } else if (inventory.has("Ticket")) {
+                BGM.stop(); 
+                BGM = this.sound.add('town', {volume: 0.20});
+                BGM.loop = true;
+                BGM.play();
                 this.scene_switch(this.scene.get('town01Scene'));
             }
         }
@@ -195,7 +206,11 @@ class Area_01 extends Phaser.Scene {
                     this.frontLayer01.putTileAtWorldXY(0, 352, 1568);
                     this.root_gone = true;
                 } 
-            } else if (this.root_gone) {
+            } else if (this.root_gone && convo == false) {
+                BGM.stop(); 
+                BGM = this.sound.add('forest', {volume: 0.10});
+                BGM.loop = true;
+                BGM.play();
                 this.scene_switch(this.scene.get('forestScene'));
             }
         }

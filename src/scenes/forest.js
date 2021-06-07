@@ -10,10 +10,10 @@ class Forest extends Phaser.Scene {
 
     create() {
 
-        //create background music
+        /*create background music
         this.bgMusic = this.sound.add('forest', {volume: 0.20});
         this.bgMusic.loop = true;
-        this.bgMusic.play();
+        this.bgMusic.play();*/
 
         //initalize controls
         cursors = this.input.keyboard.createCursorKeys();
@@ -110,6 +110,10 @@ class Forest extends Phaser.Scene {
         }
 
         if (this.physics.overlap(this.to_junkyard, head) && convo == false) {
+            BGM.stop(); 
+            BGM = this.sound.add('junkyard', {volume: 0.10});
+            BGM.loop = true;
+            BGM.play();
             this.scene_switch(this.scene.get('area_01Scene'));
         }
 
