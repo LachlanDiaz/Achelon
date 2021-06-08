@@ -49,6 +49,8 @@ class Area_01 extends Phaser.Scene {
         this.map01 = this.make.tilemap({key: "area_01"});
         this.tileset01 = this.map01.addTilesetImage("tileset_rusty", "tiles_02");
         //establishing layers
+        this.wireLayer01 = this.map01.createLayer("wires", this.tileset01, 0, 0);
+        this.wireLayer01.setDepth(1);
         this.frontLayer01 = this.map01.createLayer("front", this.tileset01, 0, 0);
         this.frontLayer01.setDepth(0);
         this.worldLayer01 = this.map01.createLayer("world", this.tileset01, 0, 0);
@@ -99,6 +101,14 @@ class Area_01 extends Phaser.Scene {
         this.balloon = this.physics.add.sprite(1408, 1408);
         this.balloon.setOrigin(1, 1);
         this.balloon.anims.play('balloon_sway');
+
+        //smoke!
+        var smokes = this.map01.createFromObjects('Objects', {
+            name: "smoke",
+            key: 'sprite_atlas',
+            frame: {frame: 'smoke_01'}
+        })
+        this.anims.play('smoke_anim', smokes)
     }
 
     update() {
