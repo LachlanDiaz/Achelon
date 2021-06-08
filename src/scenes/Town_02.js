@@ -129,7 +129,7 @@ class Town02 extends Phaser.Scene {
         //Door & Sign Logics 
         if (this.physics.overlap(this.door_top_left, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             convo = true;
-            this.textbox = new TextBox(this, ["*You knock on the door...*", "Doesn't seem to be anyone home...", ""], 'text_box');
+            this.textbox = new TextBox(this, ["*You knock on the door...*", "*You hear rustling behind the door, but there's no response.*", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
         if (this.physics.overlap(this.door_top_right, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
@@ -139,7 +139,7 @@ class Town02 extends Phaser.Scene {
         }
         if (this.physics.overlap(this.door_bot_right, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             convo = true;
-            this.textbox = new TextBox(this, ["*You knock on the door...*", "They might be out...", ""], 'text_box');
+            this.textbox = new TextBox(this, ["*You knock on the door...*", "What?! Go away!", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
         if (this.physics.overlap(this.door_bot_left, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
@@ -154,7 +154,7 @@ class Town02 extends Phaser.Scene {
         }
         if (this.physics.overlap(this.sign2, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             convo = true;
-            this.textbox = new TextBox(this, ["Viridian Church", "May our Creator's light forever shine!", ""], 'text_box');
+            this.textbox = new TextBox(this, ["Viridian Church", "From the blood of the Creator comes light!", ""], 'text_box');
             this.textBoxes.add(this.textbox);
         }
 
@@ -162,8 +162,8 @@ class Town02 extends Phaser.Scene {
         if (this.physics.overlap(this.npc_02, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             convo = true;
             if (!this.npc_02_talked) {
-                this.textbox = new TextBox(this, ["Can you step away from me please. You look filthy", "Goodness I don't know why we keep letting in people from the lower levels!",
-                "Do they want our peaceful town to end up like theirs...",""], 'text_box');
+                this.textbox = new TextBox(this, ["Can you step away from me please. You look filthy!", "Goodness. I don't know why we keep letting in people from the lower levels!",
+                "Do they want our peaceful town to end up like that mess down below?",""], 'text_box');
                 this.textBoxes.add(this.textbox);
                 this.npc_02_talked = true;
             } else if (this.npc_02_talked) {
@@ -174,43 +174,47 @@ class Town02 extends Phaser.Scene {
         if (this.physics.overlap(this.npc_03, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             convo = true;
             if (!this.npc_03_talked) {
-                this.textbox = new TextBox(this, ["Hi!", ""], 'text_box');
+                this.textbox = new TextBox(this, ["You look funny.", "What's wrong with your clothes? They're filthy.",
+                "Oh, you're from down below aren't you?", "Don't worry, I don't mind. But why are you up here?", ".....",
+                "Fuel? Do they not have fuel down below?", "Or did you use it all up trying to keep your lights running?",
+                "Maybe the pastor can help you.", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
                 this.npc_03_talked = true;
             } else if (this.npc_03_talked) {
-                this.textbox =  new TextBox(this, ["Hmm?", ""], 'text_box');
+                this.textbox =  new TextBox(this, ["Try talking to the pastor. Maybe he can help you.", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             }
         }
         if (this.physics.overlap(this.npc_04, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             convo = true;
             if (!this.npc_04_talked) {
-                this.textbox = new TextBox(this, ["Hello!", "Hmmm you're looking for fuel for your rocket?",
-                "Well we might have something you could use for fuel at the church over there.", "Here's the gate key.",
+                this.textbox = new TextBox(this, ["Hello!", "What - rocket fuel? What are you on about?",
+                "Did you run out of coal at the lower levels or something?", "I don't know about this rocket of yours, but the pastor might be able to help.",
+                "You'll need a key to get through the gate though. People have been uneasy lately, with the light fading...", "I'm not one to turn down someone in need. You can have my spare.",
                 "*You got the church gate key!*", "Good luck with your rocket", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
                 inventory.set("Gate Key", "Use to unlock the gate to the church");
                 this.npc_04_talked = true;
             } else if (this.npc_04_talked) {
-                this.textbox =  new TextBox(this, ["A rocket huh...", "Could it be you're going to try and reach Achelon...", ""], 'text_box');
+                this.textbox =  new TextBox(this, ["A rocket huh...", "You people from down below have funny ideas...", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             }
         }
         if (this.physics.overlap(this.pastor, head) && Phaser.Input.Keyboard.JustDown(cursors.space) && convo == false) {
             convo = true;
             if (!this.pastor_talked) {
-                this.textbox = new TextBox(this, ["Hmmm fuel for a rocket...",
-                "We do have something that might be of use for that sort of thing.", "But first you must tell me why you're building this rocket in the first place.",
-                "Depending on your answer I'll decide whether or not it's wise to give you what you're asking for.", "*You reluctantly explain your goal*", 
-                "You're trying to reach Achelon?!", "Well I can't say that I think it's possible. But I admire your determination...", "...", "Fine...",
-                "Take this.", "*You got a vial of dark red liquid!*", "That there is blood from Achelon.", "We've been using it to keep some of the light around the village.",
-                "But we're running low.", "Honestly I don't know if what you're doing is going to work.", " But it's better than doing nothing...",
-                "Oh! And that blood is very corrosive. So be careful!", ""], 'text_box');
+                this.textbox = new TextBox(this, ["Hello there. You have a key I see, but I don't recognize you.", "May I ask what business you have with me?",
+                ".....", "I beg your pardon - did you say a rocket?", "Oh, I don't doubt your handiwork. You have the look of a clever soul. But why build a rocket in the first place?",
+                "*You reluctantly explain your goal*", "...Achelon.", ".........", "Most here won't admit it, but the ever-fading light leaves a cold shadow over our hearts, even up here.", "But to reach the Creator themself...",
+                "I should call you mad. But I cannot.", "The light fades. The dusk stretches longer each night. Patience no longer holds virtue.", "You made your way all the way up here. Perhaps you can go further. Take this.","*You got a vial of dark red liquid!*", 
+                "This...this is the blood of Achelon.", "We've been using it to keep some of the light around the village. I pray my judgement is not clouded too heavily by fear and impatience in giving this to you.",
+                "It is a great energy source, but our supply runs low. This is what I can spare.", "I don't know if what you're doing is going to work.", "But perhaps it's better than doing nothing...",
+                "Oh! And that blood is very corrosive towards living things. Please be careful!", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
-                inventory.set("Rocket Fuel", "Made from the blood of Achelon. very corrosive and can melt anything it touches.");
+                inventory.set("Rocket Fuel", "A potent energy source made from the blood of Achelon. Very corrosive and can melt any living thing it touches.");
                 this.pastor_talked = true;
             } else if (this.pastor_talked) {
-                this.textbox =  new TextBox(this, ["Good Luck...", ""], 'text_box');
+                this.textbox =  new TextBox(this, [".....", "May your path above be safe.", ""], 'text_box');
                 this.textBoxes.add(this.textbox);
             }
         }
